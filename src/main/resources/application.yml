@@ -1,0 +1,33 @@
+server:
+  servlet:
+    context-path: /free
+
+spring:
+  datasource:
+    url: jdbc:mysql:///free
+    username: root
+    password: root
+  aop:
+    # 修改默认cglib为动态代理
+    proxy-target-class: false
+  # 全局时间处理
+  mvc:
+    format:
+      date: yyyy-MM-dd HH:mm:ss
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+logging:
+  level:
+    web: debug
+    com.free: debug
+
+mybatis-plus:
+  type-aliases-package: com.free.beans
+  mapper-locations:
+    - classpath:mapper/*.xml
+
+pagehelper:
+  reasonable: true
+  helper-dialect: mysql
