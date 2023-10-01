@@ -1,0 +1,844 @@
+﻿<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ==== Document Title ==== -->
+    <title>SociFly - Multipurpose Social Network HTML5 Template</title>
+    
+    <!-- ==== Document Meta ==== -->
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <!-- ==== Favicon ==== -->
+    <link rel="icon" href="favicon.png" type="image/png">
+
+    <!-- ==== Google Font ==== -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700%7CRoboto:300,400,400i,500,700">
+
+    <!-- ==== Plugins Bundle ==== -->
+    <link rel="stylesheet" href="css/plugins.min.css">
+    
+    <!-- ==== Main Stylesheet ==== -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- ==== Responsive Stylesheet ==== -->
+    <link rel="stylesheet" href="css/responsive-style.css">
+    
+    <!-- ==== Color Scheme Stylesheet ==== -->
+    <link rel="stylesheet" href="css/colors/color-1.css" id="changeColorScheme">
+    
+    <!-- ==== Custom Stylesheet ==== -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!-- ==== HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries ==== -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <!-- Preloader Start -->
+    <div id="preloader">
+        <div class="preloader--inner"></div>
+    </div>
+    <!-- Preloader End -->
+
+    <!-- Wrapper Start -->
+    <div id="content" class="wrapper">
+        <!-- Header Section Start -->
+        <header class="header--section style--1">
+
+            <!-- Header Navbar Start -->
+            <div class="header--navbar navbar bg-black" data-trigger="sticky">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#headerNav">
+                            <span class="sr-only">Toggle Navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <!-- Header Navbar Logo Start -->
+                        <div class="header--navbar-logo navbar-brand">
+                            <a href="index.html">
+                                <img src="img/logo-white.png" class="normal" alt="">
+                                <img src="img/logo-black.png" class="sticky" alt="">
+                            </a>
+                        </div>
+                        <!-- Header Navbar Logo End -->
+                    </div>
+
+                    <div id="headerNav" class="navbar-collapse collapse float--right">
+                        <!-- Header Nav Links Start -->
+                        <ul class="header--nav-links style--1 nav ff--primary">
+                            <li>
+                                <a href="index.html" class="btn-link">
+                                    <span>主页</span>
+                                </a>
+                            </li>
+                            <li><a href="activity.html"><span>动态</span></a></li>
+                            <li><a href="members.html"><span>成员</span></a></li>
+                            <li><a href="groups.html"><span>小组</span></a></li>
+
+                            <li v-if="userInfo != null" class="dropdown">
+                                <a href="#" class="btn-link">
+                                    <i class="fa mr--8 fa-user-o"></i>
+                                    <span>{{userInfo.username}}</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a @click.prevent="logout()">登出</a></li>
+                                    <li></li>
+                                    <li><a :href="'member-personal.html?id=' + userInfo.id">个人</a></li>
+                                </ul>
+                            </li>
+                            <li v-else class="dropdown">
+                                <a href="#" class="btn-link">
+                                    <i class="fa mr--8 fa-user-o"></i>
+                                    <span>帐号</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="login.html">登录</a></li>
+                                    <li></li>
+                                    <li><a href="register.html">注册</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- Header Nav Links End -->
+                    </div>
+                </div>
+            </div>
+            <!-- Header Navbar End -->
+        </header>
+        <!-- Header Section End -->
+
+        <!-- Cover Header Start -->
+        <div class="cover--header pt--80 text-center" data-bg-img="img/cover-header-img/bg-02.jpg" data-overlay="0.6" data-overlay-color="white" >
+            <div class="container">
+                <div class="cover--avatar" data-overlay="0.3" data-overlay-color="primary">
+                    <img :src="'img/group-img/' + group.image" alt="">
+                </div>
+
+                <div class="cover--user-name">
+                    <h2 class="h3 fw--600">{{group.name}}小组</h2>
+                </div>
+
+                <div class="cover--user-activity">
+                    <p><i class="fa mr--8 fa-clock-o"></i>创建时间: {{group.createTimeStr}}</p>
+                </div>
+
+                <div class="cover--avatars">
+                    <p>管理员: {{group.admin}}</p>
+                </div>
+
+                <div class="cover--user-desc fw--400 fs--18 fstyle--i text-darkest">
+                    <p>简介: {{group.brief}}</p>
+                </div>
+            </div>
+        </div>
+        <!-- Cover Header End -->
+
+        <!-- Page Wrapper Start -->
+        <section class="page--wrapper pt--80 pb--20">
+            <div class="container">
+                <div class="row">
+                    <!-- Main Content Start -->
+                    <div class="main--content col-md-8 pb--60" data-trigger="stickyScroll">
+                        <div class="main--content-inner drop--shadow" style="height: 800px;position: relative">
+                            <!-- Content Nav Start -->
+                            <div class="content--nav pb--30">
+                                <ul class="nav ff--primary fs--14 fw--500 bg-lighter">
+                                    <li class="active"><a href="group-home.html">动态</a></li>
+                                    <li><a href="group-members.html">成员</a></li>
+                                </ul>
+                            </div>
+                            <!-- Content Nav End -->
+
+                            <!-- Activity List Start -->
+                            <div class="activity--list">
+                                <div class="filter--nav pb--60 clearfix">
+                                    <div class="filter--link float--left">
+                                        <h2 class="h4"><a href="members.html" class="btn-link">贴子数 :
+                                            {{pageInfo.total}}</a></h2>
+                                    </div>
+
+                                    <div class="filter--options float--right">
+                                        <label>
+                                            <select v-model="sortStatus" name="filter" class="form-control form-sm">
+                                                <option value="hottest">最热</option>
+                                                <option value="newest">最新</option>
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- Activity Items Start -->
+                                <ul class="activity--items nav">
+                                    <li v-for="post in postList">
+                                        <!-- Activity Item Start -->
+                                        <div class="activity--item">
+                                            <div class="activity--avatar">
+                                                <a :href="'member-personal.html?id=' + post.user.id">
+                                                    <img :src="'img/members-img/' + post.user.head_url" alt="">
+                                                </a>
+                                            </div>
+
+                                            <div class="activity--info fs--14">
+                                                <div class="activity--header">
+                                                    <p>
+                                                        <a :href="'member-personal.html?id=' + post.user.id">{{post.user.username}}</a>
+                                                        &nbsp发表了帖子&nbsp
+                                                        <a :href="'post-details.html?id=' + post.id">{{post.title}}</a>
+                                                    </p>
+                                                </div>
+
+                                                <div class="activity--meta fs--12">
+                                                    <p><i class="fa mr--8 fa-clock-o"></i>{{post.releaseTimeStr}}</p>
+                                                </div>
+
+                                                <div class="activity--content" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                    <p>{{post.content}}</p>
+                                                </div>
+
+                                                <div class="activity--action fw--700">
+                                                    <a :href="'post-details.html?id=' + post.id">更多...</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Activity Item End -->
+                                    </li>
+
+                                </ul>
+                                <!-- Activity Items End -->
+                            </div>
+                            <!-- Activity List End -->
+                            <!--<div class="page&#45;&#45;count pb&#45;&#45;30" style="position: absolute;bottom: 0px">
+                                <label class="ff&#45;&#45;primary fs&#45;&#45;14 fw&#45;&#45;500 text-darker">
+                                    &lt;!&ndash;<span>Viewing</span>&ndash;&gt;
+                                    <a @click.prevent="getPosts(pageInfo.navigateFirstPage)">首页</a>
+                                    <a @click.prevent="getPosts(pageInfo.pageNum-1)" class="btn-link"><i
+                                            class="fa fa-caret-left"></i></a>
+                                    <span v-for="index in pageInfo.pages"><a @click.prevent="getPosts(index)"
+                                                                             class="form-control form-sm">{{index}}</a></span>
+                                    <a @click.prevent="getPosts(pageInfo.pageNum+1)" class="btn-link"><i
+                                            class="fa fa-caret-right"></i></a>
+                                    <a @click.prevent="getPosts(pageInfo.navigateLastPage)" aria-label="Next">尾页</a>
+                                    <span>共{{pageInfo.pages}}页</span>
+                                </label>
+                            </div>-->
+                        </div>
+
+                        <div class="page--count pb--30 pt--20">
+                            <label class="ff--primary fs--14 fw--500 text-darker">
+                                <!--<span>Viewing</span>-->
+                                <a @click.prevent="getPosts(pageInfo.navigateFirstPage)">首页</a>
+                                <a @click.prevent="getPosts(pageInfo.pageNum-1)" class="btn-link"><i
+                                        class="fa fa-caret-left"></i></a>
+                                <span v-for="index in pageInfo.pages"><a @click.prevent="getPosts(index)"
+                                                                         class="form-control form-sm">{{index}}</a></span>
+                                <a @click.prevent="getPosts(pageInfo.pageNum+1)" class="btn-link"><i
+                                        class="fa fa-caret-right"></i></a>
+                                <a @click.prevent="getPosts(pageInfo.navigateLastPage)" aria-label="Next">尾页</a>
+                                <span>共{{pageInfo.pages}}页</span>
+                            </label>
+                        </div>
+                        <!-- Load More Button Start -->
+                        <!--<div class="load-more&#45;&#45;btn pt&#45;&#45;30 text-center">
+                            <a href="#" class="btn btn-animate">
+                                <span>See More Activities<i class="fa ml&#45;&#45;10 fa-caret-right"></i></span>
+                            </a>
+                        </div>-->
+                        <!-- Load More Button End -->
+
+                    </div>
+                    <!-- Main Content End -->
+
+                    <!-- Main Sidebar Start -->
+                    <div class="main--sidebar col-md-4 pb--60" data-trigger="stickyScroll">
+
+                        <div class="widget">
+                            <h2 class="h4 fw--700 widget--title">欢迎来到{{group.name}}小组</h2>
+
+                            <!-- Buddy Finder Widget Start -->
+                            <div class="buddy-finder--widget">
+                                <form action="#">
+                                    <div class="row" >
+                                        <div v-if="userInfo" class="col-xs-12">
+                                            <a v-if="!joinFlag" @click.prevent="joinGroup(1)" class="btn btn-primary">加入小组</a>
+                                            <a v-else @click.prevent="joinGroup(2)" class="btn btn-primary">退出小组</a>
+                                        </div>
+                                        <div v-else class="col-xs-12">
+                                            <a href="login.html" class="btn btn-primary">登录</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- Buddy Finder Widget End -->
+                        </div>
+
+                        <!-- Widget Start -->
+                        <div class="widget">
+                            <h2 class="h4 fw--700 widget--title">说明</h2>
+
+                            <!-- Text Widget Start -->
+                            <div class="text--widget">
+                                <p>注意言行举止</p>
+                            </div>
+                            <!-- Text Widget End -->
+                        </div>
+                        <!-- Widget End -->
+
+                        <!-- Widget Start -->
+                        <div class="widget">
+                            <h2 class="h4 fw--700 widget--title">组内热门</h2>
+
+                            <!-- Links Widget Start -->
+                            <div class="links--widget">
+                                <ul class="nav">
+                                    <li v-for="(trendPost, index) in trendPostsList">
+                                        <a :href="'post-details.html?id=' + trendPost.id">{{index + 1}}. {{trendPost.title}}<span>({{trendPost.view}})</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Links Widget End -->
+                        </div>
+                        <!-- Widget End -->
+
+                        <!-- Widget Start -->
+                        <div class="widget">
+                            <h2 class="h4 fw--700 widget--title">其他小组</h2>
+
+                            <!-- Nav Widget Start -->
+                            <div class="nav--widget">
+                                <ul class="nav">
+                                    <li v-for="random in randomGroup " >
+                                        <a :href="'group-home.html?id='+random.id">
+                                            <span class="text">{{random.name}}</span>
+                                            <span class="count">({{random.memberCount}})</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Nav Widget End -->
+                        </div>
+                        <!-- Widget End -->
+
+                        <!-- Widget Start -->
+                        <div class="widget">
+                            <h2 class="h4 fw--700 widget--title">广告位招租</h2>
+
+                            <!-- Ad Widget Start -->
+                            <div class="ad--widget">
+                                <a href="#">
+                                    <img src="img/widgets-img/ad.jpg" alt="" class="center-block">
+                                </a>
+                            </div>
+                            <!-- Ad Widget End -->
+                        </div>
+                        <!-- Widget End -->
+
+                    </div>
+                    <!-- Main Sidebar End -->
+                </div>
+                <div class="col-md-8 pb--60" style="margin-left: 180px">
+                    <!-- Contact Form Start -->
+                    <div class="contact--form" data-form="ajax">
+                        <div class="contact--title">
+                            <h3 class="h4">我也要发帖</h3>
+                        </div>
+
+                        <!--<div class="contact&#45;&#45;subtitle pt&#45;&#45;15">
+                            <h4 class="h6 fw&#45;&#45;400 text-darkest">Don’t worry ! your e-mail address will not published.</h4>
+                        </div>
+
+                        <div class="contact&#45;&#45;notes ff&#45;&#45;primary mt&#45;&#45;2">
+                            <p>(Required field are marked *)</p>
+                        </div>-->
+
+                        <form id="fData" enctype="multipart/form-data">
+                            <div class="row gutter--20">
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label class="fs--16 fw--600 text-darker">标题</label>
+                                        <input v-model="post.title" type="text" name="title" placeholder="请输入标题" class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label class="fs--16 fw--600 text-darker">内容</label>
+                                        <textarea v-model="post.content"  name="content" placeholder="请输入内容" class="form-control" required></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label class="fs--16 fw--600 text-darker">图片</label>
+                                        <div v-for="(item,index) in imgUrl">
+                                            <img :src="item">
+                                        </div>
+
+                                        <input @change="change" accept="image/png, image/jpeg" type="file"  name="pictureFile" multiple id="pictureFile"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12">
+                                    <button type="button" @click="send()" class="btn btn-primary mt--10">点击发帖</button>
+                                </div>
+                            </div>
+                        </form>
+
+
+
+                    </div>
+                    <!-- Contact Form End -->
+                </div>
+            </div>
+        </section>
+        <!-- Page Wrapper End -->
+
+        <!-- Footer Section Start -->
+        <footer class="footer--section">
+            <!-- Footer Widgets Start -->
+            <div class="footer--widgets pt--70 pb--20 bg-lightdark" data-bg-img="img/footer-img/footer-widgets-bg.png">
+                <div class="container">
+                    <div class="row AdjustRow">
+                        <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">About Us</h2>
+
+                                <!-- Text Widget Start -->
+                                <div class="text--widget">
+                                    <p>Ipsum is simply dummy text of the printing indusLorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+
+                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                                </div>
+                                <!-- Text Widget End -->
+                            </div>
+                            <!-- Widget End -->
+
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Subscribe To Our Newsletter</h2>
+
+                                <!-- Newsletter Widget Start -->
+                                <div class="newsletter--widget style--1" data-form="validate">
+                                    <form action="https://themelooks.us13.list-manage.com/subscribe/post?u=79f0b132ec25ee223bb41835f&id=f4e0e93d1d" method="post" name="mc-embedded-subscribe-form" target="_blank">
+                                        <div class="input-group">
+                                            <input type="email" name="EMAIL" placeholder="Enter your emil address" class="form-control" autocomplete="off" required>
+
+                                            <div class="input-group-btn">
+                                                <button type="submit" class="btn-link"><i class="fa fa-send-o"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- Newsletter Widget End -->
+                            </div>
+                            <!-- Widget End -->
+                        </div>
+
+                        <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Recent Post</h2>
+
+                                <!-- Recent Posts Widget Start -->
+                                <div class="recent-posts--widget">
+                                    <ul class="nav">
+                                        <li>
+                                            <p class="date fw--300">
+                                                <a href="#"><i class="fa mr--8 fa-file-text-o"></i>19 Jan 2017</a>
+                                            </p>
+                                            <p class="title fw--700">
+                                                <a href="post-details.html">I look at you and see the rest of my life in front</a>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p class="date fw--300">
+                                                <a href="#"><i class="fa mr--8 fa-file-text-o"></i>19 Jan 2017</a>
+                                            </p>
+                                            <p class="title fw--700">
+                                                <a href="post-details.html">If I know what love is, it is because of you</a>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p class="date fw--300">
+                                                <a href="#"><i class="fa mr--8 fa-file-text-o"></i>19 Jan 2017</a>
+                                            </p>
+                                            <p class="title fw--700">
+                                                <a href="post-details.html">At the touch of love everyone becomes a poet</a>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- Recent Posts Widget End -->
+                            </div>
+                            <!-- Widget End -->
+
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Tags</h2>
+
+                                <!-- Tags Widget Start -->
+                                <div class="tags--widget">
+                                    <ul class="nav">
+                                        <li><a href="#">BuddyPress</a></li>
+                                        <li><a href="#">HTML</a></li>
+                                        <li><a href="#">Music</a></li>
+                                        <li><a href="#">Technology</a></li>
+                                        <li><a href="#">Movies</a></li>
+                                        <li><a href="#">Photography</a></li>
+                                        <li><a href="#">WordPress</a></li>
+                                    </ul>
+                                </div>
+                                <!-- Tags Widget End -->
+                            </div>
+                            <!-- Widget End -->
+                        </div>
+
+                        <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Some of Catagories</h2>
+
+                                <!-- Nav Widget Start -->
+                                <div class="nav--widget">
+                                    <ul class="nav">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-folder-o"></i>
+                                                <span class="text">Social Media</span>
+                                                <span class="count">(26)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-folder-o"></i>
+                                                <span class="text">Business Studies</span>
+                                                <span class="count">(06)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-folder-o"></i>
+                                                <span class="text">Technology</span>
+                                                <span class="count">(34)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- Nav Widget End -->
+                            </div>
+                            <!-- Widget End -->
+
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">From Archives</h2>
+
+                                <!-- Nav Widget Start -->
+                                <div class="nav--widget">
+                                    <ul class="nav">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-calendar-o"></i>
+                                                <span class="text">Jan - July 2017</span>
+                                                <span class="count">(86)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-calendar-o"></i>
+                                                <span class="text">Jan - Dce 2016</span>
+                                                <span class="count">(328)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-calendar-o"></i>
+                                                <span class="text">Jan - Dec 2015</span>
+                                                <span class="count">(427)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- Nav Widget End -->
+                            </div>
+                            <!-- Widget End -->
+                        </div>
+
+                        <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Forums</h2>
+
+                                <!-- Links Widget Start -->
+                                <div class="links--widget">
+                                    <ul class="nav">
+                                        <li><a href="sub-forums.html">User Interface Design</a></li>
+                                        <li><a href="sub-forums.html">Front-End Engineering</a></li>
+                                        <li><a href="sub-forums.html">Web Development</a></li>
+                                        <li><a href="sub-forums.html">Social Media Marketing</a></li>
+                                        <li><a href="sub-forums.html">Content Marketing</a></li>
+                                    </ul>
+                                </div>
+                                <!-- Links Widget End -->
+                            </div>
+                            <!-- Widget End -->
+
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Useful Links</h2>
+
+                                <!-- Links Widget Start -->
+                                <div class="links--widget">
+                                    <ul class="nav">
+                                        <li><a href="#">Register</a></li>
+                                        <li><a href="#">Login</a></li>
+                                        <li><a href="#">Membership Levels</a></li>
+                                        <li><a href="#">Shop</a></li>
+                                        <li><a href="#">Contact</a></li>
+                                    </ul>
+                                </div>
+                                <!-- Links Widget End -->
+                            </div>
+                            <!-- Widget End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Widgets End -->
+
+            <!-- Footer Extra Start -->
+            <div class="footer--extra bg-darker pt--30 pb--40 text-center">
+                <div class="container">
+                    <!-- Widget Start -->
+                    <div class="widget">
+                        <h2 class="h4 fw--700 widget--title">Recent Active Members</h2>
+
+                        <!-- Recent Active Members Widget Start -->
+                        <div class="recent-active-members--widget style--2">
+                            <div class="owl-carousel" data-owl-items="12" data-owl-nav="true" data-owl-speed="1200" data-owl-responsive='{"0": {"items": "3"}, "481": {"items": "6"}, "768": {"items": "8"}, "992": {"items": "12"}}'>
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/01.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/02.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/03.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/04.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/05.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/06.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/07.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/08.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/09.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/10.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/11.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/12.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/13.jpg" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Recent Active Members Widget End -->
+                    </div>
+                    <!-- Widget End -->
+                </div>
+            </div>
+            <!-- Footer Extra End -->
+
+            <!-- Footer Copyright Start -->
+            <div class="footer--copyright pt--30 pb--30 bg-darkest">
+                <div class="container">
+                    <div class="text fw--500 fs--14 text-center">
+                        <p>Copyright &copy; Soci<span>fly</span>. All Rights <a href="http://www.bootstrapmb.com/" title="bootstrapmb">Reserved</a>.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Copyright End -->
+        </footer>
+        <!-- Footer Section End -->
+    </div>
+    <!-- Wrapper End -->
+
+    <!-- Back To Top Button Start -->
+    <div id="backToTop">
+        <a href="#" class="btn"><i class="fa fa-caret-up"></i></a>
+    </div>
+    <!-- Back To Top Button End -->
+
+    <!-- ==== Plugins Bundle ==== -->
+    <script src="js/plugins.min.js"></script>
+    <!-- ==== Main Script ==== -->
+    <script src="js/main.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.js"></script>
+    <script src="js/getParameter.js"></script>
+    <script>
+        new Vue({
+            el: "#content",
+            data: {
+                userInfo: {},
+                groupId: "",
+                group: {},
+                postList: {},
+                pageInfo: {},
+                trendPostsList: [],
+                post:{},
+                joinFlag: false,
+                sortStatus:"hottest",
+                randomGroup:[],
+                imgUrl:[],
+                imgUrlForm:[]
+            },
+            created: function() {
+                this.loadUser();
+                this.groupId = getParameter("id");
+                if (this.groupId == null) {
+                    this.group = JSON.parse(sessionStorage.getItem("group"))
+                    this.groupId = this.group.id;
+                } else {
+                    this.getGroup();
+                }
+                this.randomLoad(this.groupId);
+                this.getPosts();
+                this.getTrendPosts();
+                this.joinGroup(0);
+            },
+            methods: {
+                change(event){
+                    this.imgUrl = [];
+                    let reader = new FileReader();
+                    let img1 = event.target.files[0];
+                    this.imgUrlForm.push(img1);
+                    reader.readAsDataURL(img1);
+                    let _this = this;
+                    reader.onloadend = function (){
+                        _this.imgUrl.push(reader.result);
+                    }
+                },
+                send(){
+                    let _this = this;
+                    let formData = new FormData($("#fData")[0])
+                    formData.append("groupId",this.groupId);
+                    formData.append("userId",this.userInfo.id);
+                    axios.post("/free/post/send", formData).then(function (response) {
+                        _this.post.content = "";
+                        _this.post.title = "";
+                        _this.imgUrl = [];
+                        _this.imgUrlForm = [];
+                    });
+                },
+                randomLoad(id){
+                    let _this = this;
+                    axios.get("/free/group/random",{
+                        params:{
+                            groupId:id
+                        }
+                    }).then(function (response) {
+                        _this.randomGroup = response.data.data;
+                    })
+                },
+                loadUser(){
+                    this.userInfo = JSON.parse(sessionStorage.getItem("userInfo"))
+                },
+                logout() {
+                    sessionStorage.removeItem("userInfo");
+                    this.userInfo = {};
+                    location.reload();
+                },
+                getGroup() {
+                    const _this = this;
+                    axios.get("/free/group/findOne",
+                        {params: {groupId: _this.groupId}}
+                    ).then(function (response) {
+                        let resultInfo = response.data;
+                        if (resultInfo.flag) {
+                            _this.group = resultInfo.data;
+                            sessionStorage.setItem("group", JSON.stringify(_this.group));
+                        }
+                    });
+                },
+                getPosts(pageNum) {
+                    let _this = this;
+                    axios.get("/free/post/groupPosts", {params:{
+                            pageNum: pageNum, groupId: _this.groupId,sortStatus:_this.sortStatus
+                        }}).then(function (response) {
+                        _this.postList = response.data.list;
+                        _this.pageInfo = response.data;
+                    })
+                },
+                // 得到x条热门帖子的ID和标题
+                getTrendPosts() {
+                    let _this = this;
+                    axios.get("/free/post/groupTrendPosts", {params:{
+                            groupId: _this.groupId
+                        }}).then(function (response) {
+                        _this.trendPostsList = response.data;
+                    })
+                },
+                joinGroup(type) {
+                    let _this = this;
+                    axios.get("/free/group/joinGroup", {
+                        params: {
+                            userId: _this.userInfo.id,
+                            groupId: _this.groupId,
+                            type: type
+                        }
+                    }).then(function (response) {
+                        _this.joinFlag = response.data.flag;
+                        if (type !== 0) {
+                            location.reload();
+                        }
+                    })
+                }
+            },
+            watch :{
+                sortStatus:{
+                    deep:true,
+                    handler(val){
+                        this.getPosts();
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

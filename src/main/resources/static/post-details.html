@@ -1,0 +1,896 @@
+﻿<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ==== Document Title ==== -->
+    <title>SociFly - Multipurpose Social Network HTML5 Template</title>
+    
+    <!-- ==== Document Meta ==== -->
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <!-- ==== Favicon ==== -->
+    <link rel="icon" href="favicon.png" type="image/png">
+
+    <!-- ==== Google Font ==== -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700%7CRoboto:300,400,400i,500,700">
+
+    <!-- ==== Plugins Bundle ==== -->
+    <link rel="stylesheet" href="css/plugins.min.css">
+    
+    <!-- ==== Main Stylesheet ==== -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- ==== Responsive Stylesheet ==== -->
+    <link rel="stylesheet" href="css/responsive-style.css">
+    
+    <!-- ==== Color Scheme Stylesheet ==== -->
+    <link rel="stylesheet" href="css/colors/color-1.css" id="changeColorScheme">
+    
+    <!-- ==== Custom Stylesheet ==== -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!-- ==== HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries ==== -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <!-- Preloader Start -->
+    <div id="preloader">
+        <div class="preloader--inner"></div>
+    </div>
+    <!-- Preloader End -->
+
+    <!-- Wrapper Start -->
+    <div id="app" class="wrapper">
+        <!-- Header Section Start -->
+        <header class="header--section style--1">
+
+            <!-- Header Navbar Start -->
+            <div class="header--navbar navbar bg-black" data-trigger="sticky">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#headerNav">
+                            <span class="sr-only">Toggle Navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <!-- Header Navbar Logo Start -->
+                        <div class="header--navbar-logo navbar-brand">
+                            <a href="index.html">
+                                <img src="img/logo-white.png" class="normal" alt="">
+                                <img src="img/logo-black.png" class="sticky" alt="">
+                            </a>
+                        </div>
+                        <!-- Header Navbar Logo End -->
+                    </div>
+
+                    <div id="headerNav" class="navbar-collapse collapse float--right">
+                        <!-- Header Nav Links Start -->
+                        <ul class="header--nav-links style--1 nav ff--primary">
+                            <li>
+                                <a href="index.html" class="btn-link">
+                                    <span>主页</span>
+                                </a>
+                            </li>
+                            <li><a href="activity.html"><span>动态</span></a></li>
+                            <li><a href="members.html"><span>成员</span></a></li>
+                            <li><a href="groups.html"><span>小组</span></a></li>
+
+                            <li v-if="userInfo != null" class="dropdown">
+                                <a href="#" class="btn-link">
+                                    <i class="fa mr--8 fa-user-o"></i>
+                                    <span>{{userInfo.username}}</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a @click.prevent="logout()">登出</a></li>
+                                    <li></li>
+                                    <li><a :href="'member-personal.html?id=' + userInfo.id">个人</a></li>
+                                </ul>
+                            </li>
+                            <li v-else class="dropdown">
+                                <a href="#" class="btn-link">
+                                    <i class="fa mr--8 fa-user-o"></i>
+                                    <span>帐号</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="login.html">登录</a></li>
+                                    <li></li>
+                                    <li><a href="register.html">注册</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- Header Nav Links End -->
+                    </div>
+                </div>
+            </div>
+            <!-- Header Navbar End -->
+        </header>
+        <!-- Header Section End -->
+
+        <!-- Page Header Start -->
+        <div class="page--header pt--60 pb--60 text-center" data-bg-img="img/page-header-img/bg.jpg" data-overlay="0.85">
+            <div class="container">
+                <div class="title">
+                    <h2 class="h1 text-white">帖子</h2>
+                </div>
+
+                <ul class="breadcrumb text-gray ff--primary">
+                    <li><a href="index.html" class="btn-link">主页</a></li>
+                    <li><a href="groups.html" class="btn-link">小组</a></li>
+                    <li class="active"><span class="text-primary">帖子</span></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Page Header End -->
+
+        <!-- Page Wrapper Start -->
+        <section class="page--wrapper pt--80 pb--20">
+            <div class="container">
+                <div class="row">
+                    <!-- Main Content Start -->
+                    <div class="main--content col-md-8 pb--30" data-trigger="stickyScroll">
+                        <div class="main--content-inner">
+                            <!-- Post Item Start -->
+                            <div class="post--item post--single pb--30">
+                                <!-- Post Image Start -->
+                                <div class="post--img">
+                                    <a href="post-details.html"><img src="img/posts-img/post-item-02.jpg" alt=""></a>
+                                </div>
+                                <!-- Post Image End -->
+
+                                <!-- Post Info Start -->
+                                <div class="post--info">
+                                    <!-- Post Meta Start -->
+                                    <div class="post--meta">
+                                        <ul class="nav">
+                                            <li>
+                                                <a href="#">
+                                                    <i class="mr--8 fa fa-calendar-o"></i>
+                                                    <span>{{post.releaseTimeStr}}</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span>pageViews: {{post.view}}</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <i class="mr--8 fa fa-comments-o"></i>
+                                                    <span>{{pageInfo.total}} Comments</span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- Post Meta End -->
+
+                                    <!-- Post Title Start -->
+                                    <div class="post--title mt--10">
+                                        <h3 class="h4">{{post.title}}</h3>
+                                    </div>
+                                    <!-- Post Title End -->
+
+                                    <!-- Post Content Start -->
+                                    <div class="post--content text-darker mt--10">
+                                        <p>{{post.content}}</p>
+                                    </div>
+                                    <!-- Post Content End -->
+
+                                    <div v-for="pic in postPic">
+                                        <img :src="'/free/img/post-img/'+pic" width=100% height=100% object-fit="cover" />
+                                    </div>
+                                </div>
+                                <!-- Post Info End -->
+                            </div>
+                            <!-- Post Item End -->
+
+                            <button v-if="!isFavorite" @click="favorite()" class="btn btn-default">收藏</button>
+                            <button v-else @click="favorite()" class="btn btn-default">取消收藏</button>
+                            <!-- Post Author Start -->
+                            <div class="post--author pt--40 pb--30">
+                                <div class="post--author-inner clearfix" data-bg-img="img/posts-img/author-bg.png">
+                                    <div class="img mr--30 text-black text-center float--left">
+                                        <img :src="'img/members-img/' + post.user.head_url" alt="">
+
+                                        <p><a :href="'member-personal.html?id=' + post.user.id" class="btn-link">{{post.user.nickname}}</a></p>
+                                    </div>
+
+                                    <div class="info ov--h fs--14 pt--8">
+                                        <div class="desc fw--500 fstyle--i">
+                                            <p>个人简介:<br>{{post.user.introduce}}</p>
+                                        </div>
+
+                                        <!--<div class="social text-gray">
+                                            <ul class="nav">
+                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                            </ul>
+                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Post Author End -->
+
+                            <!-- Comment List Start -->
+                            <div class="comment--list pt--40">
+                                <h4 class="h4 pb--20">{{pageInfo.total}} 条回复</h4>
+
+                                <ul class="comment--items nav">
+                                    <li v-for="(comment,index) in commentList">
+                                        <!-- Comment Item Start -->
+                                        <div class="comment--item mr--15 clearfix">
+                                            <div class="img float--left" data-overlay="0.3" data-overlay-color="primary">
+                                                <img :src="'img/members-img/' + comment.user.head_url" alt="">
+                                            </div>
+
+                                            <div class="info ov--h">
+                                                <div class="header clearfix">
+                                                    <div class="meta float--left">
+                                                        <p class="fs--14 fw--700 text-darkest">
+                                                            <a href="#">{{comment.user.username}}</a>
+                                                        </p>
+
+                                                        <p>
+                                                            <i class="mr--10 fa fa-clock-o"></i>
+                                                            <span>{{comment.replyTimeStr}}</span>
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="reply text-darker float--right">
+                                                        <a v-if="!comment.likeFlag" @click.prevent="like(comment.id,index,1)" href="#">点赞 {{comment.likeCounts}}</a>
+                                                        <a v-else @click.prevent="like(comment.id,index,1)" href="#" >已赞 {{comment.likeCounts}}</a>
+                                                    </div>
+                                                    <div class="reply text-darker float--right">
+                                                        <a @click.prevent="selectReply(comment,comment)" href="#">回复 &nbsp;&nbsp;&nbsp;</a>
+                                                    </div>
+                                                </div>
+
+                                                <div class="content pt--8 fs--14">
+                                                    <div class="meta float--left">
+                                                    <p>{{comment.content}}</p></div>
+                                                    <div class=" text-darker float--right">
+                                                    <span><a @click.prevent="sc(index)" v-show="!comment.comments.length==0" href="#">评论</a></span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Comment Item End -->
+                                            <ul v-if="showComment[index]" class="comment--items nav">
+                                                <li v-for="(sComment,sIndex) in secondCommentList[index]">
+                                                    <!-- Comment Item Start -->
+                                                    <div class="comment--item mr--15 clearfix">
+                                                        <div class="img float--left" data-overlay="0.3" data-overlay-color="primary">
+                                                            <img :src="'img/members-img/' + sComment.user.head_url" alt="">
+                                                        </div>
+
+                                                        <div class="info ov--h">
+                                                            <div class="header clearfix">
+                                                                <div class="meta float--left">
+                                                                    <p class="fs--14 fw--700 text-darkest">
+                                                                        <a href="#">{{sComment.user.username}}</a><a v-show="sComment.rootId!=sComment.parentId" href="#">@{{sComment.parentUsername}}</a>
+                                                                    </p>
+
+                                                                    <p>
+                                                                        <i class="mr--10 fa fa-clock-o"></i>
+                                                                        <span>{{sComment.replyTimeStr}}</span>
+                                                                    </p>
+                                                                </div>
+
+                                                                <div class="reply text-darker float--right">
+                                                                    <a v-if="!sComment.likeFlag" @click.prevent="like(sComment.id,sIndex,2,index)" href="#">点赞 {{sComment.likeCounts}}</a>
+                                                                    <a v-else @click.prevent="like(sComment.id,sIndex,2,index)" href="#" >已赞 {{sComment.likeCounts}}</a>
+                                                                </div>
+                                                                <div class="reply text-darker float--right">
+                                                                    <a @click.prevent="selectReply(sComment,comment)" href="#">回复 &nbsp;&nbsp;&nbsp;</a>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="content pt--8 fs--14">
+                                                                <p>{{sComment.content}}</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Comment Item End -->
+                                                </li>
+                                                <div v-for="(p,pIndex) in secondPageInfo" v-if="pIndex===index" class="page--count pb--30">
+                                                    <label class="ff--primary fs--14 fw--500 text-darker">
+                                                        <a style="cursor: pointer" @click.prevent="loadCommentPages(p.pageNum-1,2,comment.id,index)" class="btn-link"><i class="fa fa-caret-left"></i></a>
+                                                        <span style="cursor: pointer" v-for="i in p.pages"><a @click.prevent="loadCommentPages(i,2,comment.id,index)" class="form-control form-sm">{{i}}</a></span>
+                                                        <a style="cursor: pointer" @click.prevent="loadCommentPages(p.pageNum+1,2,comment.id,index)" class="btn-link"><i class="fa fa-caret-right"></i></a>
+                                                        <span>当前页码:{{p.pageNum}}</span>
+                                                        <span>共{{p.pages}}页</span>
+                                                    </label>
+                                                </div>
+                                            </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Comment List End -->
+
+                            <div class="page--count pb--30">
+                                <label class="ff--primary fs--14 fw--500 text-darker">
+                                    <!--<span>Viewing</span>-->
+                                    <a style="cursor: pointer" @click.prevent="loadCommentPages(pageInfo.navigateFirstPage,1)">首页</a>
+                                    <a style="cursor: pointer" @click.prevent="loadCommentPages(pageInfo.pageNum-1,1)" class="btn-link"><i class="fa fa-caret-left"></i></a>
+                                    <span style="cursor: pointer" v-for="index in pageInfo.pages"><a @click.prevent="loadCommentPages(index,1)" class="form-control form-sm">{{index}}</a></span>
+                                    <a style="cursor: pointer" @click.prevent="loadCommentPages(pageInfo.pageNum+1,1)" class="btn-link"><i class="fa fa-caret-right"></i></a>
+                                    <a style="cursor: pointer" @click.prevent="loadCommentPages(pageInfo.navigateLastPage,1)" aria-label="Next">尾页</a>
+                                    <span>当前页码:{{pageInfo.pageNum}}</span>
+                                    <span>共{{pageInfo.pages}}页</span>
+                                </label>
+                            </div>
+                            <!-- Comment Form Start -->
+                            <div class="comment--form pb--30" data-form="validate">
+                                <h4 class="h4 pb--15">评论</h4>
+
+                                    <div class="row gutter--15">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <input name="userId" type="hidden" :value="sendComment.userId">
+                                                <textarea id="textarea1" name="content" v-model="sendComment.content" :placeholder="replyUsername" class="form-control" required></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-12 pt--10">
+                                            <button class="btn btn-sm btn-primary fs--14" @click="send()">发送评论</button>
+                                        </div>
+                                    </div>
+
+                            </div>
+                            <!-- Comment Form End -->
+                        </div>
+                    </div>
+                    <!-- Main Content End -->
+
+                    <!-- Main Sidebar Start -->
+                    <div class="main--sidebar col-md-4 pb--60" data-trigger="stickyScroll">
+                        <!-- Widget Start -->
+                        <div class="widget">
+                            <h2 class="h4 fw--700 widget--title">注意</h2>
+
+                            <!-- Text Widget Start -->
+                            <div class="text--widget">
+                                <p>友好交流 文明评论</p>
+                            </div>
+                            <!-- Text Widget End -->
+                        </div>
+                        <!-- Widget End -->
+
+                        <!-- Widget Start -->
+                        <!--<div class="widget">
+                            <h2 class="h4 fw&#45;&#45;700 widget&#45;&#45;title">Forums</h2>
+
+                            &lt;!&ndash; Links Widget Start &ndash;&gt;
+                            <div class="links&#45;&#45;widget">
+                                <ul class="nav">
+                                    <li><a href="sub-forums.html">User Interface Design<span>(12)</span></a></li>
+                                    <li><a href="sub-forums.html">Front-End Engineering<span>(07)</span></a></li>
+                                    <li><a href="sub-forums.html">Web Development<span>(37)</span></a></li>
+                                    <li><a href="sub-forums.html">Social Media Marketing<span>(13)</span></a></li>
+                                    <li><a href="sub-forums.html">Content Marketing<span>(28)</span></a></li>
+                                </ul>
+                            </div>
+                            &lt;!&ndash; Links Widget End &ndash;&gt;
+                        </div>-->
+                        <!-- Widget End -->
+
+                        <!-- Widget Start -->
+                        <div class="widget">
+                            <h2 class="h4 fw--700 widget--title">广告位招租</h2>
+
+                            <!-- Ad Widget Start -->
+                            <div class="ad--widget">
+                                <a href="#">
+                                    <img src="img/widgets-img/ad.jpg" alt="" class="center-block">
+                                </a>
+                            </div>
+                            <!-- Ad Widget End -->
+                        </div>
+                        <!-- Widget End -->
+                    </div>
+                    <!-- Main Sidebar End -->
+                </div>
+            </div>
+        </section>
+        <!-- Page Wrapper End -->
+
+        <!-- Footer Section Start -->
+        <footer class="footer--section">
+            <!-- Footer Widgets Start -->
+            <div class="footer--widgets pt--70 pb--20 bg-lightdark" data-bg-img="img/footer-img/footer-widgets-bg.png">
+                <div class="container">
+                    <div class="row AdjustRow">
+                        <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">About Us</h2>
+
+                                <!-- Text Widget Start -->
+                                <div class="text--widget">
+                                    <p>Ipsum is simply dummy text of the printing indusLorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+
+                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                                </div>
+                                <!-- Text Widget End -->
+                            </div>
+                            <!-- Widget End -->
+
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Subscribe To Our Newsletter</h2>
+
+                                <!-- Newsletter Widget Start -->
+                                <div class="newsletter--widget style--1" data-form="validate">
+                                    <form action="https://themelooks.us13.list-manage.com/subscribe/post?u=79f0b132ec25ee223bb41835f&id=f4e0e93d1d" method="post" name="mc-embedded-subscribe-form" target="_blank">
+                                        <div class="input-group">
+                                            <input type="email" name="EMAIL" placeholder="Enter your emil address" class="form-control" autocomplete="off" required>
+
+                                            <div class="input-group-btn">
+                                                <button type="submit" class="btn-link"><i class="fa fa-send-o"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- Newsletter Widget End -->
+                            </div>
+                            <!-- Widget End -->
+                        </div>
+
+                        <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Recent Post</h2>
+
+                                <!-- Recent Posts Widget Start -->
+                                <div class="recent-posts--widget">
+                                    <ul class="nav">
+                                        <li>
+                                            <p class="date fw--300">
+                                                <a href="#"><i class="fa mr--8 fa-file-text-o"></i>19 Jan 2017</a>
+                                            </p>
+                                            <p class="title fw--700">
+                                                <a href="post-details.html">I look at you and see the rest of my life in front</a>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p class="date fw--300">
+                                                <a href="#"><i class="fa mr--8 fa-file-text-o"></i>19 Jan 2017</a>
+                                            </p>
+                                            <p class="title fw--700">
+                                                <a href="post-details.html">If I know what love is, it is because of you</a>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p class="date fw--300">
+                                                <a href="#"><i class="fa mr--8 fa-file-text-o"></i>19 Jan 2017</a>
+                                            </p>
+                                            <p class="title fw--700">
+                                                <a href="post-details.html">At the touch of love everyone becomes a poet</a>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- Recent Posts Widget End -->
+                            </div>
+                            <!-- Widget End -->
+
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Tags</h2>
+
+                                <!-- Tags Widget Start -->
+                                <div class="tags--widget">
+                                    <ul class="nav">
+                                        <li><a href="#">BuddyPress</a></li>
+                                        <li><a href="#">HTML</a></li>
+                                        <li><a href="#">Music</a></li>
+                                        <li><a href="#">Technology</a></li>
+                                        <li><a href="#">Movies</a></li>
+                                        <li><a href="#">Photography</a></li>
+                                        <li><a href="#">WordPress</a></li>
+                                    </ul>
+                                </div>
+                                <!-- Tags Widget End -->
+                            </div>
+                            <!-- Widget End -->
+                        </div>
+
+                        <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Some of Catagories</h2>
+
+                                <!-- Nav Widget Start -->
+                                <div class="nav--widget">
+                                    <ul class="nav">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-folder-o"></i>
+                                                <span class="text">Social Media</span>
+                                                <span class="count">(26)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-folder-o"></i>
+                                                <span class="text">Business Studies</span>
+                                                <span class="count">(06)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-folder-o"></i>
+                                                <span class="text">Technology</span>
+                                                <span class="count">(34)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- Nav Widget End -->
+                            </div>
+                            <!-- Widget End -->
+
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">From Archives</h2>
+
+                                <!-- Nav Widget Start -->
+                                <div class="nav--widget">
+                                    <ul class="nav">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-calendar-o"></i>
+                                                <span class="text">Jan - July 2017</span>
+                                                <span class="count">(86)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-calendar-o"></i>
+                                                <span class="text">Jan - Dce 2016</span>
+                                                <span class="count">(328)</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-calendar-o"></i>
+                                                <span class="text">Jan - Dec 2015</span>
+                                                <span class="count">(427)</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- Nav Widget End -->
+                            </div>
+                            <!-- Widget End -->
+                        </div>
+
+                        <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Forums</h2>
+
+                                <!-- Links Widget Start -->
+                                <div class="links--widget">
+                                    <ul class="nav">
+                                        <li><a href="sub-forums.html">User Interface Design</a></li>
+                                        <li><a href="sub-forums.html">Front-End Engineering</a></li>
+                                        <li><a href="sub-forums.html">Web Development</a></li>
+                                        <li><a href="sub-forums.html">Social Media Marketing</a></li>
+                                        <li><a href="sub-forums.html">Content Marketing</a></li>
+                                    </ul>
+                                </div>
+                                <!-- Links Widget End -->
+                            </div>
+                            <!-- Widget End -->
+
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">Useful Links</h2>
+
+                                <!-- Links Widget Start -->
+                                <div class="links--widget">
+                                    <ul class="nav">
+                                        <li><a href="#">Register</a></li>
+                                        <li><a href="#">Login</a></li>
+                                        <li><a href="#">Membership Levels</a></li>
+                                        <li><a href="#">Shop</a></li>
+                                        <li><a href="#">Contact</a></li>
+                                    </ul>
+                                </div>
+                                <!-- Links Widget End -->
+                            </div>
+                            <!-- Widget End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Widgets End -->
+
+            <!-- Footer Extra Start -->
+            <div class="footer--extra bg-darker pt--30 pb--40 text-center">
+                <div class="container">
+                    <!-- Widget Start -->
+                    <div class="widget">
+                        <h2 class="h4 fw--700 widget--title">Recent Active Members</h2>
+
+                        <!-- Recent Active Members Widget Start -->
+                        <div class="recent-active-members--widget style--2">
+                            <div class="owl-carousel" data-owl-items="12" data-owl-nav="true" data-owl-speed="1200" data-owl-responsive='{"0": {"items": "3"}, "481": {"items": "6"}, "768": {"items": "8"}, "992": {"items": "12"}}'>
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/01.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/02.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/03.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/04.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/05.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/06.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/07.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/08.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/09.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/10.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/11.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/12.jpg" alt=""></a>
+                                </div>
+
+                                <div class="img">
+                                    <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/13.jpg" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Recent Active Members Widget End -->
+                    </div>
+                    <!-- Widget End -->
+                </div>
+            </div>
+            <!-- Footer Extra End -->
+
+            <!-- Footer Copyright Start -->
+            <div class="footer--copyright pt--30 pb--30 bg-darkest">
+                <div class="container">
+                    <div class="text fw--500 fs--14 text-center">
+                        <p>Copyright &copy; Soci<span>fly</span>. All Rights <a href="http://www.bootstrapmb.com/" title="bootstrapmb">Reserved</a>.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Copyright End -->
+        </footer>
+        <!-- Footer Section End -->
+    </div>
+    <!-- Wrapper End -->
+
+    <!-- Back To Top Button Start -->
+    <div id="backToTop">
+        <a href="#" class="btn"><i class="fa fa-caret-up"></i></a>
+    </div>
+    <!-- Back To Top Button End -->
+
+    <!-- ==== Plugins Bundle ==== -->
+    <script src="js/plugins.min.js"></script>
+
+    <!-- ==== Main Script ==== -->
+    <script src="js/main.js"></script>
+    <script src="js/axios.js"></script>
+    <script src="js/vue.js"></script>
+    <script src="js/getParameter.js"></script>
+    <script src="js/jquery-3.3.1.js"></script>
+    <script>
+        const app = new Vue({
+            el:"#app",
+            data:{
+                postId:"",
+                userInfo: {},
+                post:{
+                    comments:[]
+                },
+                sendComment:{},
+                currentUser:{},
+                isFavorite:false,
+                replyUsername:"",
+                replyCommentId:"",
+                replyRootId:"",
+                commentList:[],
+                pageInfo:[],
+                secondCommentList:[],
+                secondPageInfo:[],
+                showComment:[],
+                postPic:[]
+            },
+
+            methods:{
+                sc(index){
+                    this.showComment[index]=!this.showComment[index];
+                    this.$forceUpdate();
+                },
+                selectReply(comment,c){
+                    this.replyCommentId = this.replyCommentId===comment.id? '':comment.id;
+                    this.replyUsername = this.replyCommentId===''? '':'@'+comment.user.username;
+                    this.replyRootId = c.id;
+                },
+                like(cid,i,flag,index){
+                    let _this = this;
+                    axios.get("/free/comment/like",{
+                        params:{
+                            commentId:cid,
+                            userId:this.currentUser.id
+                        }
+                    }).then(function (response) {
+                        if(flag===1){
+                            _this.commentList[i].likeCounts = response.data.data;
+                            _this.commentList[i].likeFlag = response.data.flag;
+                        }
+                        else{
+                            _this.secondCommentList[index][i].likeCounts = response.data.data;
+                            _this.secondCommentList[index][i].likeFlag = response.data.flag;
+                            _this.$forceUpdate();
+                        }
+                    })
+                },
+                favorite(){
+                    let _this = this;
+                    let id = getParameter("id");
+                    if(!this.isFavorite){
+                        axios.get("/free/post/favorite",{
+                            params:{
+                                userId:_this.currentUser.id,
+                                postId:id
+                            }
+                        }).then(function (response) {
+                            _this.isFavorite = response.data.flag;
+                        })
+                    }
+                    else{
+                        axios.get("/free/post/cancelFavorite",{
+                            params:{
+                                userId:_this.currentUser.id,
+                                postId:id
+                            }
+                        }).then(function (response) {
+                            _this.isFavorite = response.data.flag;
+                        })
+                    }
+                },
+                loadUser(){
+                    this.userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
+                },
+                logout() {
+                    sessionStorage.removeItem("userInfo");
+                    this.userInfo = {};
+                    location.reload();
+                },
+                send() {
+                    let _this = this;
+                    this.sendComment.userId=this.currentUser.id;
+                    this.sendComment.postId=this.post.id;
+                    if(this.replyCommentId!==""){
+                        this.sendComment.parentId=this.replyCommentId;
+                        this.sendComment.rootId=this.replyRootId;
+                    }
+                    axios.post("/free/comment/save",this.sendComment).then(function (response) {
+                        _this.load();
+                        _this.loadCommentPages(1,1);
+                        _this.sendComment.content = "";
+                    });
+                },
+                load(){
+                    this.userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
+                    let _this = this;
+                    let id = getParameter("id");
+                    this.postId = id;
+                    axios.get("/free/post/view",{
+                        params:{
+                            userId:this.userInfo.id,
+                            postId:this.postId
+                        }
+                    });
+                    axios.get("/free/post/details/"+id).then(function (response) {
+                        _this.post = response.data;
+                        for (let i = 0; i < response.data.pic.length; i++) {
+                            _this.postPic = response.data.pic.split("/");
+                        }
+
+                    });
+                },
+                loadFavorite(){
+                    let _this = this;
+                    let id = getParameter("id");
+                    axios.get("/free/post/isFavorite",{
+                        params:{
+                            userId:_this.currentUser.id,
+                            postId:id
+                        }
+                    }).then(function (response) {
+                        _this.isFavorite = response.data.flag;
+                    })
+                },
+                loadCommentPages(pageNum,f,rootId,index){
+                    let _this = this;
+                    this.userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
+                    if(f===1){
+                        axios.get("/free/comment/list", {params:{
+                                pageNum:pageNum, postId: this.postId,userId:this.userInfo.id
+                            }}).then(function (response) {
+                            for (let i = 0; i < response.data.length; i++) {
+                                if(i===response.data.length-1){
+                                    _this.commentList = response.data[i].list;
+                                    _this.pageInfo = response.data[i];
+                                }
+                                else{
+                                    _this.secondPageInfo[i]=response.data[i];
+                                    _this.secondCommentList[i]=response.data[i].list;
+                                }
+                            }
+                            _this.showComment = [];
+                            for (let i = 0; i < _this.commentList.length; i++) {
+                                _this.showComment.push(false);
+                            }
+                        })
+                    }
+                    else if(f===2){
+                        axios.get("/free/comment/secondList", {params:{
+                                pageNum:pageNum, postId: this.postId,userId:this.userInfo.id,rootId:rootId
+                            }}).then(function (response) {
+                                _this.secondCommentList[index] = response.data.list;
+                                _this.secondPageInfo[index] = response.data;
+                                _this.$forceUpdate();
+                        })
+                    }
+                }
+            },
+            created: function () {
+                this.loadUser();
+                let user = sessionStorage.getItem("userInfo");
+                if (user != null) {
+                    this.currentUser= JSON.parse(user);
+                }
+                this.load();
+                this.loadFavorite();
+                this.loadCommentPages(1,1);
+            }
+        })
+    </script>
+</body>
+</html>

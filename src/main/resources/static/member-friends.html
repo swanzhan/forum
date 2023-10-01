@@ -1,0 +1,576 @@
+﻿<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ==== Document Title ==== -->
+    <title>SociFly - Multipurpose Social Network HTML5 Template</title>
+
+    <!-- ==== Document Meta ==== -->
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <!-- ==== Favicon ==== -->
+    <link rel="icon" href="favicon.png" type="image/png">
+
+    <!-- ==== Google Font ==== -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700%7CRoboto:300,400,400i,500,700">
+
+    <!-- ==== Plugins Bundle ==== -->
+    <link rel="stylesheet" href="css/plugins.min.css">
+
+    <!-- ==== Main Stylesheet ==== -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- ==== Responsive Stylesheet ==== -->
+    <link rel="stylesheet" href="css/responsive-style.css">
+
+    <!-- ==== Color Scheme Stylesheet ==== -->
+    <link rel="stylesheet" href="css/colors/color-1.css" id="changeColorScheme">
+
+    <!-- ==== Custom Stylesheet ==== -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!-- ==== HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries ==== -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<!-- Preloader Start -->
+<div id="preloader">
+    <div class="preloader--inner"></div>
+</div>
+<!-- Preloader End -->
+
+<!-- Wrapper Start -->
+<div id="content" class="wrapper">
+    <!-- Header Section Start -->
+    <header class="header--section style--1">
+
+        <!-- Header Navbar Start -->
+        <div class="header--navbar navbar bg-black" data-trigger="sticky">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#headerNav">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <!-- Header Navbar Logo Start -->
+                    <div class="header--navbar-logo navbar-brand">
+                        <a href="index.html">
+                            <img src="img/logo-white.png" class="normal" alt="">
+                            <img src="img/logo-black.png" class="sticky" alt="">
+                        </a>
+                    </div>
+                    <!-- Header Navbar Logo End -->
+                </div>
+
+                <div id="headerNav" class="navbar-collapse collapse float--right">
+                    <!-- Header Nav Links Start -->
+                    <ul class="header--nav-links style--1 nav ff--primary">
+                        <li>
+                            <a href="index.html" class="btn-link">
+                                <span>主页</span>
+                            </a>
+                        </li>
+                        <li><a href="activity.html"><span>动态</span></a></li>
+                        <li><a href="members.html"><span>成员</span></a></li>
+                        <li><a href="groups.html"><span>小组</span></a></li>
+
+                        <li v-if="userInfo != null" class="dropdown">
+                            <a href="#" class="btn-link">
+                                <i class="fa mr--8 fa-user-o"></i>
+                                <span>{{userInfo.username}}</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a @click.prevent="logout()">登出</a></li>
+                                <li></li>
+                                <li><a :href="'member-personal.html?id=' + userInfo.id">个人</a></li>
+                            </ul>
+                        </li>
+                        <li v-else class="dropdown">
+                            <a href="#" class="btn-link">
+                                <i class="fa mr--8 fa-user-o"></i>
+                                <span>帐号</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="login.html">登录</a></li>
+                                <li></li>
+                                <li><a href="register.html">注册</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- Header Nav Links End -->
+                </div>
+            </div>
+        </div>
+        <!-- Header Navbar End -->
+    </header>
+    <!-- Header Section End -->
+
+    <!-- Cover Header Start -->
+    <div class="cover--header pt--80 text-center" data-bg-img="img/cover-header-img/bg-01.jpg" data-overlay="0.6" data-overlay-color="white">
+        <div class="container">
+            <div class="cover--avatar online" data-overlay="0.3" data-overlay-color="primary">
+                <img src="img/cover-header-img/avatar-01.jpg" alt="">
+            </div>
+
+            <div class="cover--user-name">
+                <h2 class="h3 fw--600">{{memberInfo.username}}</h2>
+            </div>
+
+        </div>
+    </div>
+    <!-- Cover Header End -->
+
+    <!-- Page Wrapper Start -->
+    <section class="page--wrapper pt--80 pb--20">
+        <div class="container">
+            <div class="row">
+                <!-- Main Content Start -->
+                <div class="main--content col-md-12 pb--60" data-trigger="stickyScroll">
+                    <div class="main--content-inner drop--shadow" style="height: 730px;position: relative">
+                        <!-- Content Nav Start -->
+                        <div class="content--nav pb--30">
+                            <ul class="nav ff--primary fs--14 fw--500 bg-lighter">
+                                <li ><a href="member-personal.html">动态</a></li>
+                                <li><a href="member-profile.html">个人信息</a></li>
+                                <li class="active"><a href="member-friends.html">好友</a></li>
+                                <li><a href="member-groups.html">群组</a></li>
+                            </ul>
+                        </div>
+                        <!-- Content Nav End -->
+
+                        <!-- Filter Nav Start -->
+                        <div class="filter--nav pb--50 clearfix">
+                            <div class="filter--link float--left">
+                                <h2 v-if="friendType" class="h4">关注: </h2>
+                                <h2 v-else class="h4">粉丝: </h2>
+                            </div>
+
+                            <div class="filter--options float--right">
+                                <label>
+                                    <!--<span class="fs&#45;&#45;14 ff&#45;&#45;primary fw&#45;&#45;500 text-darker">好友 :</span>-->
+
+                                    <!--<select v-model="friendType" @change="" name="membersfilter" class="form-control form-sm" data-trigger="selectmenu">
+                                        <option :value="0">关注</option>
+                                        <option :value="1">粉丝</option>
+                                    </select>-->
+                                    <button @click.prevent="change()" type="button" class="btn btn-primary">切换</button>
+                                </label>
+                            </div>
+                        </div>
+                        <!-- Filter Nav End -->
+
+                        <!-- Member Items Start -->
+                        <div class="member--items">
+                            <div class="row gutter--15 AdjustRow">
+                                <div v-for="member in friendMembers" class="col-md-3 col-xs-6 col-xxs-12">
+                                    <!-- Member Item Start -->
+                                    <div class="member--item online">
+                                        <div  class="img img-circle">
+                                            <a :href="'member-personal.html?id=' + member.id" class="btn-link">
+                                                <img :src="'img/members-img/' + member.head_url" alt="">
+                                            </a>
+                                        </div>
+
+                                        <div class="name">
+                                            <h3 class="h6 fs--12">
+                                                <a :href="'member-personal.html?id=' + member.id" class="btn-link">{{member.username}}</a>
+                                            </h3>
+                                        </div>
+
+                                        <div class="introduce">
+                                            <p><i class="fa mr--8 fa-clock-o"></i>简介: {{member.introduce}}</p>
+                                        </div>
+
+                                        <div class="actions">
+                                            <ul class="nav">
+                                                <li>
+                                                    <a v-if="userInfo" :href="'message.html?id=' + member.id" title="私信" class="btn-link" data-toggle="tooltip" data-placement="bottom">
+                                                        <i class="fa fa-envelope-o"></i>
+                                                    </a>
+                                                    <a v-else href="login.html" title="私信" class="btn-link" data-toggle="tooltip" data-placement="bottom">
+                                                        <i class="fa fa-envelope-o"></i>
+                                                    </a>
+                                                </li>
+
+                                                <li>
+                                                    <a @click.prevent="focusMember(userInfo.id, member.id, 1)" title="取消关注" class="btn-link" data-toggle="tooltip" data-placement="bottom">
+                                                        <i class="fa fa-user-circle"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- Member Item End -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Member Items End -->
+
+                        <!-- Page Count Start -->
+                        <div class="page--count pt--30" style="position: absolute;bottom: 20px">
+                            <label class="ff--primary fs--14 fw--500 text-darker" style="display: block">
+                                <span>页数</span>
+                                <a @click.prevent="friendList(pageInfo.prePage)" class="btn-link"><i class="fa fa-caret-left"></i></a>
+                                <a v-for="index in pageInfo.navigatepageNums" @click.prevent="friendList(index)" class="btn-link" :class="{active: pageInfo.pageNum === index}">{{index}}</a>
+                                <a @click.prevent="friendList(pageInfo.nextPage)" href="#" class="btn-link"><i class="fa fa-caret-right"></i></a>
+
+                                <span>共 {{pageInfo.pages}} 页</span>
+                            </label>
+                        </div>
+                        <!-- Page Count End -->
+                    </div>
+                </div>
+                <!-- Main Content End -->
+
+                <!-- Main Sidebar Start -->
+                <!--<div class="main&#45;&#45;sidebar col-md-4 pb&#45;&#45;60" data-trigger="stickyScroll">
+
+                    &lt;!&ndash; Widget Start &ndash;&gt;
+                    <div class="widget">
+                        <h2 class="h4 fw&#45;&#45;700 widget&#45;&#45;title">通知</h2>
+
+                        &lt;!&ndash; Text Widget Start &ndash;&gt;
+                        <div class="text&#45;&#45;widget">
+                            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some  look even slightly believable.</p>
+                        </div>
+                        &lt;!&ndash; Text Widget End &ndash;&gt;
+                    </div>
+                    &lt;!&ndash; Widget End &ndash;&gt;
+
+                    &lt;!&ndash; Widget Start &ndash;&gt;
+                    <div class="widget">
+                        <h2 class="h4 fw&#45;&#45;700 widget&#45;&#45;title">论坛</h2>
+
+                        &lt;!&ndash; Links Widget Start &ndash;&gt;
+                        <div class="links&#45;&#45;widget">
+                            <ul class="nav">
+                                <li><a href="sub-forums.html">User Interface Design<span>(12)</span></a></li>
+                                <li><a href="sub-forums.html">Front-End Engineering<span>(07)</span></a></li>
+                                <li><a href="sub-forums.html">Web Development<span>(37)</span></a></li>
+                                <li><a href="sub-forums.html">Social Media Marketing<span>(13)</span></a></li>
+                                <li><a href="sub-forums.html">Content Marketing<span>(28)</span></a></li>
+                            </ul>
+                        </div>
+                        &lt;!&ndash; Links Widget End &ndash;&gt;
+                    </div>
+
+                    <div class="widget">
+                        <h2 class="h4 fw&#45;&#45;700 widget&#45;&#45;title">广告</h2>
+
+                        &lt;!&ndash; Ad Widget Start &ndash;&gt;
+                        <div class="ad&#45;&#45;widget">
+                            <a href="#">
+                                <img src="img/widgets-img/ad.jpg" alt="" class="center-block">
+                            </a>
+                        </div>
+                        &lt;!&ndash; Ad Widget End &ndash;&gt;
+                    </div>
+                    &lt;!&ndash; Widget End &ndash;&gt;
+                </div>-->
+                <!-- Main Sidebar End -->
+            </div>
+        </div>
+    </section>
+    <!-- Page Wrapper End -->
+
+    <!-- Footer Section Start -->
+    <footer class="footer--section">
+        <!-- Footer Widgets Start -->
+        <div class="footer--widgets pt--70 pb--20 bg-lightdark" data-bg-img="img/footer-img/footer-widgets-bg.png">
+            <div class="container">
+                <div class="row AdjustRow">
+                    <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                        <!-- Widget Start -->
+                        <div class="widget">
+                            <h2 class="h4 fw--700 widget--title">关于我们</h2>
+
+                            <!-- Text Widget Start -->
+                            <div class="text--widget">
+                                <p>Ipsum is simply dummy text of the printing indusLorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+
+                                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                            </div>
+                            <!-- Text Widget End -->
+                        </div>
+                        <!-- Widget End -->
+
+                    </div>
+
+                    <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                        <!-- Widget Start -->
+                        <div class="widget">
+                            <h2 class="h4 fw--700 widget--title">最新帖子</h2>
+
+                            <!-- Recent Posts Widget Start -->
+                            <div class="recent-posts--widget">
+                                <ul class="nav">
+                                    <li>
+                                        <p class="date fw--300">
+                                            <a href="#"><i class="fa mr--8 fa-file-text-o"></i>19 Jan 2017</a>
+                                        </p>
+                                        <p class="title fw--700">
+                                            <a href="post-details.html">I look at you and see the rest of my life in front</a>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p class="date fw--300">
+                                            <a href="#"><i class="fa mr--8 fa-file-text-o"></i>19 Jan 2017</a>
+                                        </p>
+                                        <p class="title fw--700">
+                                            <a href="post-details.html">If I know what love is, it is because of you</a>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p class="date fw--300">
+                                            <a href="#"><i class="fa mr--8 fa-file-text-o"></i>19 Jan 2017</a>
+                                        </p>
+                                        <p class="title fw--700">
+                                            <a href="post-details.html">At the touch of love everyone becomes a poet</a>
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Recent Posts Widget End -->
+                        </div>
+                        <!-- Widget End -->
+
+                    </div>
+                    <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                        <!-- Widget Start -->
+                        <div class="widget">
+                            <h2 class="h4 fw--700 widget--title">功能</h2>
+
+                            <!-- Links Widget Start -->
+                            <div class="links--widget">
+                                <ul class="nav">
+                                    <li><a href="#">注册</a></li>
+                                    <li><a href="#">登录</a></li>
+                                    <li><a href="#">主页</a></li>
+                                </ul>
+                            </div>
+                            <!-- Links Widget End -->
+                            <!-- Nav Widget End -->
+                        </div>
+                        <!-- Widget End -->
+
+                    </div>
+                    <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                        <!-- Widget Start -->
+                        <div class="widget">
+                            <h2 class="h4 fw--700 widget--title">论坛</h2>
+
+                            <!-- Links Widget Start -->
+                            <div class="links--widget">
+                                <ul class="nav">
+                                    <li><a href="sub-forums.html">User Interface Design</a></li>
+                                    <li><a href="sub-forums.html">Front-End Engineering</a></li>
+                                    <li><a href="sub-forums.html">Web Development</a></li>
+                                    <li><a href="sub-forums.html">Social Media Marketing</a></li>
+                                    <li><a href="sub-forums.html">Content Marketing</a></li>
+                                </ul>
+                            </div>
+                            <!-- Links Widget End -->
+                        </div>
+                        <!-- Widget End -->
+
+                        <!-- Widget Start -->
+
+                        <!-- Widget End -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Footer Widgets End -->
+
+        <!-- Footer Extra Start -->
+        <div class="footer--extra bg-darker pt--30 pb--40 text-center">
+            <div class="container">
+                <!-- Widget Start -->
+                <div class="widget">
+                    <h2 class="h4 fw--700 widget--title">Recent Active Members</h2>
+
+                    <!-- Recent Active Members Widget Start -->
+                    <div class="recent-active-members--widget style--2">
+                        <div class="owl-carousel" data-owl-items="12" data-owl-nav="true" data-owl-speed="1200" data-owl-responsive='{"0": {"items": "3"}, "481": {"items": "6"}, "768": {"items": "8"}, "992": {"items": "12"}}'>
+                            <div class="img">
+                                <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/01.jpg" alt=""></a>
+                            </div>
+
+                            <div class="img">
+                                <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/02.jpg" alt=""></a>
+                            </div>
+
+                            <div class="img">
+                                <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/03.jpg" alt=""></a>
+                            </div>
+
+                            <div class="img">
+                                <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/04.jpg" alt=""></a>
+                            </div>
+
+                            <div class="img">
+                                <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/05.jpg" alt=""></a>
+                            </div>
+
+                            <div class="img">
+                                <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/06.jpg" alt=""></a>
+                            </div>
+
+                            <div class="img">
+                                <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/07.jpg" alt=""></a>
+                            </div>
+
+                            <div class="img">
+                                <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/08.jpg" alt=""></a>
+                            </div>
+
+                            <div class="img">
+                                <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/09.jpg" alt=""></a>
+                            </div>
+
+                            <div class="img">
+                                <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/10.jpg" alt=""></a>
+                            </div>
+
+                            <div class="img">
+                                <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/11.jpg" alt=""></a>
+                            </div>
+
+                            <div class="img">
+                                <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/12.jpg" alt=""></a>
+                            </div>
+
+                            <div class="img">
+                                <a href="member-personal.html"><img src="img/widgets-img/recent-active-members/13.jpg" alt=""></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Recent Active Members Widget End -->
+                </div>
+                <!-- Widget End -->
+            </div>
+        </div>
+        <!-- Footer Extra End -->
+
+        <!-- Footer Copyright Start -->
+        <div class="footer--copyright pt--30 pb--30 bg-darkest">
+            <div class="container">
+                <div class="text fw--500 fs--14 text-center">
+                    <p>Copyright &copy; Soci<span>fly</span>. All Rights <a href="http://www.bootstrapmb.com/" title="bootstrapmb">Reserved</a>.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Footer Copyright End -->
+    </footer>
+    <!-- Footer Section End -->
+</div>
+<!-- Wrapper End -->
+
+<!-- Back To Top Button Start -->
+<div id="backToTop">
+    <a href="#" class="btn"><i class="fa fa-caret-up"></i></a>
+</div>
+<!-- Back To Top Button End -->
+
+<!-- ==== Plugins Bundle ==== -->
+<script src="js/plugins.min.js"></script>
+
+<!-- ==== Main Script ==== -->
+<script src="js/main.js"></script>
+
+<script src="js/vue.js"></script>
+<script src="js/axios.js"></script>
+<script>
+    new Vue({
+        el: "#content",
+        data: {
+            userInfo: {},
+            pageInfo: {},
+            member: {},
+            friendMembers: [],
+            memberCount: 0,
+            memberInfo: {},
+            friendType: true,
+            isUser:false
+        },
+        created: function() {
+            this.loadUser();
+            this.loadMember();
+            this.friendList(1);
+            if(this.memberInfo.id===this.userInfo.id){
+                this.isUser = true;
+            }
+        },
+        methods: {
+            loadUser() {
+                const userInfo = sessionStorage.getItem("userInfo");
+                if (userInfo) {
+                    this.userInfo = JSON.parse(userInfo);
+                }
+            },
+            logout() {
+                sessionStorage.removeItem("userInfo");
+                this.userInfo = {};
+                location.reload();
+            },
+            loadMember() {
+                const memberInfo = sessionStorage.getItem("memberInfo");
+                if (memberInfo) {
+                    this.memberInfo = JSON.parse(memberInfo);
+                }
+            },
+            change() {
+                this.friendType = !this.friendType;
+                this.friendList();
+            },
+            friendList(pageNum) {
+                const _this = this;
+                // if (this.userInfo != null) {
+                //     userId = this.userInfo.id;
+                // }
+                // this.friendType = !this.friendType;
+                axios.get("/free/userInfo/friendList", {
+                    params: {
+                        pageNum: pageNum,
+                        userId: _this.memberInfo.id,
+                        friendType: _this.friendType
+                    }
+                }).then(function(response) {
+                    _this.pageInfo = response.data;
+                    _this.friendMembers = response.data.list;
+                });
+            },
+            focusMember(userId, memberId, type) {
+                const _this = this;
+                axios.get("/free/userInfo/focusMember", {
+                    params: {
+                        userId: userId,
+                        memberId: memberId,
+                        type: type
+                    }
+                }).then(function (response) {
+                    if (response.data.flag) {
+                        _this.list();
+                        location.reload();
+                    }
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,403 @@
+﻿<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- ==== Document Title ==== -->
+    <title>SociFly - Multipurpose Social Network HTML5 Template</title>
+    
+    <!-- ==== Document Meta ==== -->
+    <meta name="author" content="">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <!-- ==== Favicon ==== -->
+    <link rel="icon" href="favicon.png" type="image/png">
+
+    <!-- ==== Google Font ==== -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700%7CRoboto:300,400,400i,500,700">
+
+    <!-- ==== Plugins Bundle ==== -->
+    <link rel="stylesheet" href="css/plugins.min.css">
+    
+    <!-- ==== Main Stylesheet ==== -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- ==== Responsive Stylesheet ==== -->
+    <link rel="stylesheet" href="css/responsive-style.css">
+    
+    <!-- ==== Color Scheme Stylesheet ==== -->
+    <link rel="stylesheet" href="css/colors/color-1.css" id="changeColorScheme">
+    
+    <!-- ==== Custom Stylesheet ==== -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!-- ==== HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries ==== -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+    <!-- Preloader Start -->
+    <div id="preloader">
+        <div class="preloader--inner"></div>
+    </div>
+    <!-- Preloader End -->
+
+    <!-- Wrapper Start -->
+    <div id="content" class="wrapper">
+        <!-- Header Section Start -->
+        <header class="header--section style--1">
+            <!-- Header Navbar Start -->
+            <div class="header--navbar navbar bg-black" data-trigger="sticky">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#headerNav">
+                            <span class="sr-only">Toggle Navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                        <!-- Header Navbar Logo Start -->
+                        <div class="header--navbar-logo navbar-brand">
+                            <a href="index.html">
+                                <img src="img/logo-white.png" class="normal" alt="">
+                                <img src="img/logo-black.png" class="sticky" alt="">
+                            </a>
+                        </div>
+                        <!-- Header Navbar Logo End -->
+                    </div>
+
+                    <div id="headerNav" class="navbar-collapse collapse float--right">
+                        <!-- Header Nav Links Start -->
+                        <ul class="header--nav-links style--1 nav ff--primary">
+                            <li>
+                                <a href="index.html">
+                                    <span>主页</span>
+                                </a>
+                            </li>
+                            <li><a href="activity.html"><span>动态</span></a></li>
+                            <li><a href="members.html"><span>成员</span></a></li>
+                            <li><a href="groups.html" class="btn-link active"><span>小组</span></a></li>
+
+                            <li v-if="userInfo != null" class="dropdown">
+                                <a href="#" class="btn-link">
+                                    <i class="fa mr--8 fa-user-o"></i>
+                                    <span>{{userInfo.username}}</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a @click.prevent="logout()">登出</a></li>
+                                    <li></li>
+                                    <li><a :href="'member-personal.html?id=' + userInfo.id">个人</a></li>
+                                </ul>
+                            </li>
+                            <li v-else class="dropdown">
+                                <a href="#" class="btn-link">
+                                    <i class="fa mr--8 fa-user-o"></i>
+                                    <span>帐号</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="login.html">登录</a></li>
+                                    <li></li>
+                                    <li><a href="register.html">注册</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <!-- Header Nav Links End -->
+                    </div>
+                </div>
+            </div>
+            <!-- Header Navbar End -->
+        </header>
+        <!-- Header Section End -->
+
+        <!-- Page Header Start -->
+        <div class="page--header pt--60 pb--60 text-center" data-bg-img="img/page-header-img/bg.jpg" data-overlay="0.85">
+            <div class="container">
+                <div class="title">
+                    <h2 class="h1 text-white">小组</h2>
+                </div>
+
+                <ul class="breadcrumb text-gray ff--primary">
+                    <li><a href="index.html" class="btn-link">主页</a></li>
+                    <li class="active"><span class="text-primary">小组</span></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Page Header End -->
+
+        <!-- Page Wrapper Start -->
+        <section class="page--wrapper pt--80 pb--20">
+            <div class="container">
+                <div class="row" style="position: relative">
+
+                    <!-- Main Content Start -->
+                    <div class="main--content col-md-12 pb--60">
+                        <div class="main--content-inner">
+                            <!-- Filter Nav Start -->
+                            <div class="filter--nav pb--30 clearfix">
+                                <div class="filter--link float--left">
+                                    <h2 class="h4">所有小组 : {{groupCount}}</h2>
+                                </div>
+
+                                <div class="filter--options float--right">
+                                    <label style="display: flex;">
+                                        <input v-model="keyword" type="text" placeholder="关键字" class="form-control" autocomplete="off" required>
+                                        <button @click.prevent="search()" type="button" class="btn btn-primary">搜索</button>
+                                    </label>
+                                </div>
+
+                            </div>
+                            <!-- Filter Nav End -->
+                            
+                            <!-- Box Items Start -->
+                            <div class="box--items">
+                                <div class="row gutter--15 AdjustRow">
+
+                                    <div v-for="group in groups" class="col-md-3 col-xs-6 col-xxs-12">
+                                        <!-- Box Item Start -->
+                                        <div class="box--item text-center">
+                                            <a :href="'group-home.html?id=' + group.id" class="img" data-overlay="0.1">
+                                                <img :src="'img/group-img/' + group.image" alt="">
+                                            </a>
+
+                                            <div class="info">
+                                                <div class="title">
+                                                    <h2 class="h6"><a :href="'group-home.html?id=' + group.id">{{group.name}}</a></h2>
+                                                </div>
+
+                                                <div class="meta">
+                                                    <p><i class="fa mr--8 fa-clock-o"></i>{{group.createTimeStr}}</p>
+                                                    <p><i class="fa mr--8 fa-user-o"></i>{{group.memberCount}}</p>
+                                                </div>
+
+                                                <div class="desc text-darker">
+                                                    <p>{{group.brief}}</p>
+                                                </div>
+
+                                                <div class="action">
+                                                    <a :href="'group-home.html?id=' + group.id">小组详情<i class="fa ml--10 fa-caret-right"></i></a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- Box Item End -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Box Items End -->
+
+                        </div>
+                    </div>
+                    <!-- Main Content End -->
+                    <!-- Page Count Start -->
+                    <div class="page--count pt--30" style="position:absolute;bottom: 10px">
+                        <label class="ff--primary fs--14 fw--500 text-darker">
+                            <span>页数</span>
+
+                            <a @click.prevent="list(pageInfo.prePage)" class="btn-link"><i class="fa fa-caret-left"></i></a>
+                            <a v-for="index in pageInfo.navigatepageNums" @click.prevent="list(index)" class="btn-link" :class="{active: pageInfo.pageNum === index}">{{index}}</a>
+                            <a @click.prevent="list(pageInfo.nextPage)" href="#" class="btn-link"><i class="fa fa-caret-right"></i></a>
+
+                            <span>共 {{pageInfo.pages}} 页</span>
+                        </label>
+                    </div>
+                    <!-- Page Count End -->
+
+                </div>
+            </div>
+        </section>
+        <!-- Page Wrapper End -->
+
+        <!-- Footer Section Start -->
+        <footer id="footer" class="footer--section">
+            <!-- Footer Widgets Start -->
+            <div class="footer--widgets pt--70 pb--20 bg-lightdark" data-bg-img="img/footer-img/footer-widgets-bg.png">
+                <div class="container">
+                    <div class="row AdjustRow">
+                        <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">关于我们</h2>
+
+                                <!-- Text Widget Start -->
+                                <div class="text--widget">
+                                    <p>Ipsum is simply dummy text of the printing indusLorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+
+                                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                                </div>
+                                <!-- Text Widget End -->
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">最新帖子</h2>
+
+                                <!-- Recent Posts Widget Start -->
+                                <div class="recent-posts--widget">
+                                    <ul class="nav">
+                                        <li>
+                                            <p class="date fw--300">
+                                                <a href="#"><i class="fa mr--8 fa-file-text-o"></i>19 Jan 2017</a>
+                                            </p>
+                                            <p class="title fw--700">
+                                                <a href="post-details.html">I look at you and see the rest of my life in front</a>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p class="date fw--300">
+                                                <a href="#"><i class="fa mr--8 fa-file-text-o"></i>19 Jan 2017</a>
+                                            </p>
+                                            <p class="title fw--700">
+                                                <a href="post-details.html">If I know what love is, it is because of you</a>
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p class="date fw--300">
+                                                <a href="#"><i class="fa mr--8 fa-file-text-o"></i>19 Jan 2017</a>
+                                            </p>
+                                            <p class="title fw--700">
+                                                <a href="post-details.html">At the touch of love everyone becomes a poet</a>
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- Recent Posts Widget End -->
+                            </div>
+
+                        </div>
+                        <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">功能</h2>
+
+                                <!-- Links Widget Start -->
+                                <div class="links--widget">
+                                    <ul class="nav">
+                                        <li><a href="#">注册</a></li>
+                                        <li><a href="#">登录</a></li>
+                                        <li><a href="#">主页</a></li>
+                                    </ul>
+                                </div>
+                                <!-- Links Widget End -->
+                                <!-- Nav Widget End -->
+                            </div>
+
+                        </div>
+                        <div class="col-md-3 col-xs-6 col-xxs-12 pb--60">
+                            <!-- Widget Start -->
+                            <div class="widget">
+                                <h2 class="h4 fw--700 widget--title">论坛</h2>
+
+                                <!-- Links Widget Start -->
+                                <div class="links--widget">
+                                    <ul class="nav">
+                                        <li><a href="sub-forums.html">User Interface Design</a></li>
+                                        <li><a href="sub-forums.html">Front-End Engineering</a></li>
+                                        <li><a href="sub-forums.html">Web Development</a></li>
+                                        <li><a href="sub-forums.html">Social Media Marketing</a></li>
+                                        <li><a href="sub-forums.html">Content Marketing</a></li>
+                                    </ul>
+                                </div>
+                                <!-- Links Widget End -->
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Footer Widgets End -->
+
+            <!-- Footer Copyright Start -->
+            <div class="footer--copyright pt--30 pb--30 bg-darkest">
+                <div class="container">
+                    <div class="text fw--500 fs--14 text-center">
+                        <p>Copyright &copy; Soci<span>fly</span>. All Rights <a href="http://www.bootstrapmb.com/" title="bootstrapmb">Reserved</a>.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Copyright End -->
+        </footer>
+        <!-- Footer Section End -->
+    </div>
+    <!-- Wrapper End -->
+
+    <!-- Back To Top Button Start -->
+    <div id="backToTop">
+        <a href="#" class="btn"><i class="fa fa-caret-up"></i></a>
+    </div>
+    <!-- Back To Top Button End -->
+
+    <!-- ==== Plugins Bundle ==== -->
+    <script src="js/plugins.min.js"></script>
+
+    <!-- ==== Main Script ==== -->
+    <script src="js/main.js"></script>
+
+    <script src="js/vue.js"></script>
+    <script src="js/axios.js"></script>
+    <script>
+        new Vue({
+            el: "#content",
+            data: {
+                userInfo: {},
+                pageInfo: {},
+                groups: [],
+                groupCount: 0,
+                keyword: ""
+            },
+            created: function() {
+                this.loadUser();
+                this.list();
+                this.count();
+            },
+            methods: {
+                loadUser(){
+                    this.userInfo = JSON.parse(sessionStorage.getItem("userInfo"))
+                    console.log(this.userInfo)
+                },
+                logout() {
+                    sessionStorage.removeItem("userInfo");
+                    this.userInfo = {};
+                    location.reload();
+                },
+                list(pageNum) {
+                    const _this = this;
+                    axios.get("/free/group/list",
+                        {params: {pageNum: pageNum}}
+                    ).then(function (response) {
+                        _this.pageInfo = response.data;
+                        _this.groups = response.data.list;
+                    });
+                },
+                count() {
+                    const _this = this;
+                    axios.get("/free/group/count"
+                    ).then(function (response) {
+                        _this.groupCount = response.data;
+                    });
+                },
+                search() {
+                    const _this = this;
+                    axios.get("/free/group/search",
+                        {params: {keyword: _this.keyword}}
+                    ).then(function (response) {
+                        _this.pageInfo = response.data;
+                        _this.groups = response.data.list;
+                    });
+                }
+            },
+        })
+    </script>
+
+</body>
+</html>
