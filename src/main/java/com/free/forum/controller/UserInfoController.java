@@ -15,6 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserInfoController {
     private final UserInfoService userInfoService;
 
+    /**
+     * 登录
+     *
+     * @param userInfo 用户信息
+     * @return 结果信息
+     */
     @RequestMapping("login")
     public ResultInfo login(@RequestBody UserInfo userInfo) {
         ResultInfo resultInfo = new ResultInfo();

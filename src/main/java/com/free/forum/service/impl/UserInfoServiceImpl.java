@@ -15,6 +15,13 @@ import org.springframework.stereotype.Service;
 public class UserInfoServiceImpl implements UserInfoService {
     private final UserInfoMapper userInfoMapper;
 
+    /**
+     * 登录
+     *
+     * @param userInfo 用户信息
+     * @return 用户信息
+     * @throws Exception 例外
+     */
     @Override
     public UserInfo login(UserInfo userInfo) throws Exception {
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
