@@ -20,6 +20,8 @@ public class UserInfo {
     private String head_url;
     private String introduce;
     @TableField(exist = false)
+    private Integer messageCount;
+    @TableField(exist = false)
     private List<Post> posts;
     @TableField(exist = false)
     private List<Group> groups;
