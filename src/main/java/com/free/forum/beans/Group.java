@@ -15,6 +15,7 @@ public class Group {
     private String name;
     // 简介
     private String brief;
+    @TableField("createTime")
     private Date createTime;
     private String image;
     // 管理员 id

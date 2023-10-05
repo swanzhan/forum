@@ -12,13 +12,18 @@ import java.util.List;
 public class Comment {
     private String id;
     private String content;
+    @TableField("replyTime")
     private Date replyTime;
+    @TableField("userId")
     private String userId;
     // 所属帖子 id
+    @TableField("postId")
     private String postId;
     // 父级评论 id
+    @TableField("parentId")
     private String parentId;
     // 顶级评论 id
+    @TableField("rootId")
     private String rootId;
     @TableField(exist = false)
     private Long likeCounts;

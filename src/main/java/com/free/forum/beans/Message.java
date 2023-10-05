@@ -14,10 +14,13 @@ public class Message {
     private String id;
     private String content;
     // 发送方 id
+    @TableField("sendId")
     private String sendId;
     // 接收方 id
+    @TableField("receiveId")
     private String receiveId;
     // 双方会话 id
+    @TableField("conversationId")
     private String conversationId;
     private Date time;
     // 标识消息的阅读状态（0表示未读，1表示已读）

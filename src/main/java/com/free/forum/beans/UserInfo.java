@@ -24,7 +24,7 @@ public class UserInfo {
     private String ip;
     private String email;
     // 头像地址
-    private String head_url;
+    private String headUrl;
     // 个人介绍
     private String introduce;
     @TableField(exist = false)

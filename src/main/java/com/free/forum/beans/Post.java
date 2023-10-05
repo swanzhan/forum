@@ -14,10 +14,13 @@ public class Post {
     private String title;
     private String content;
     // 发布时间
+    @TableField("releaseTime")
     private Date releaseTime;
     // 浏览量
     private Integer view;
+    @TableField("userId")
     private String userId;
+    @TableField("groupId")
     private String groupId;
     private String pic;
     @TableField(exist = false)
