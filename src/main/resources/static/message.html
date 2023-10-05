@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- ==== Document Title ==== -->
-    <title>SociFly - Multipurpose Social Network HTML5 Template</title>
+    <title>Free</title>
     
     <!-- ==== Document Meta ==== -->
     <meta name="author" content="">
@@ -67,8 +67,8 @@
                         <!-- Header Navbar Logo Start -->
                         <div class="header--navbar-logo navbar-brand">
                             <a href="index.html">
-                                <img src="img/logo-white.png" class="normal" alt="">
-                                <img src="img/logo-black.png" class="sticky" alt="">
+                                <img src="img/black.jpg" class="normal" alt="">
+                                <img src="img/white.jpg" class="sticky" alt="">
                             </a>
                         </div>
                         <!-- Header Navbar Logo End -->
@@ -76,17 +76,24 @@
 
                     <div id="headerNav" class="navbar-collapse collapse float--right">
                         <!-- Header Nav Links Start -->
-                        <ul class="header--nav-links style--1 nav ff--primary">
+                        <ul v-if="userInfo != null" class="header--nav-links style--1 nav ff--primary">
                             <li>
-                                <a href="index.html" class="btn-link active">
+                                <a href="index.html" class="btn-link">
                                     <span>主页</span>
                                 </a>
                             </li>
-                            <li><a href="activity.html"><span>动态</span></a></li>
-                            <li><a href="members.html"><span>成员</span></a></li>
-                            <li><a href="groups.html"><span>小组</span></a></li>
-
-                            <li v-if="userInfo != null" class="dropdown">
+                            <li class="dropdown">
+                                <a href="activity.html" class="btn-link">
+                                    <span>动态</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="groups.html">小组</a></li>
+                                    <li></li>
+                                    <li><a href="members.html">成员</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="message.html" class="btn-link active"><span>消息({{userInfo.messageCount}})</span></a></li>
+                            <li class="dropdown">
                                 <a href="#" class="btn-link">
                                     <i class="fa mr--8 fa-user-o"></i>
                                     <span>{{userInfo.username}}</span>
@@ -97,7 +104,26 @@
                                     <li><a :href="'member-personal.html?id=' + userInfo.id">个人</a></li>
                                 </ul>
                             </li>
-                            <li v-else class="dropdown">
+                        </ul>
+                        <!-- Header Nav Links End -->
+                        <!-- Header Nav Links Start -->
+                        <ul v-else class="header--nav-links style--1 nav ff--primary">
+                            <li>
+                                <a href="index.html" class="btn-link active">
+                                    <span>主页</span>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="activity.html" class="btn-link">
+                                    <span>动态</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="groups.html">小组</a></li>
+                                    <li></li>
+                                    <li><a href="members.html">成员</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
                                 <a href="#" class="btn-link">
                                     <i class="fa mr--8 fa-user-o"></i>
                                     <span>帐号</span>
@@ -121,7 +147,7 @@
         <div class="page--header pt--60 pb--60 text-center" data-bg-img="img/page-header-img/bg.jpg" data-overlay="0.85">
             <div class="container">
                 <div class="title">
-                    <h2 class="h1 text-white">私信</h2>
+                    <h2 class="h1 text-white">消息</h2>
                 </div>
             </div>
         </div>
@@ -140,7 +166,7 @@
                                 <table class="table">
                                     <thead class="ff--primary fs--14 text-darkest">
                                         <tr>
-                                            <th>私信列表</th>
+                                            <th>消息列表</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -148,14 +174,14 @@
                                         <tr v-for="conversation in conversationList">
                                             <td>
                                                 <a @click.prevent="loadConversation(1, conversation.partner.id)" href="#" class="topic--author">
-                                                    <span class="avatar"><img :src="'img/members-img/' + conversation.partner.head_url" alt=""></span>
+                                                    <span class="avatar"><img :src="'img/members-img/' + conversation.partner.headUrl" alt=""></span>
 <!--                                                    <span class="name ml&#45;&#45;10 fw&#45;&#45;900">{{conversation.partner.nickname}}</span>-->
                                                     <span class="name ml--10 fw--900">{{conversation.partner ? conversation.partner.nickname : ''}}</span>
                                                 </a>
                                                 <p class="ml--6 mt--6">{{conversation.content}}</p>
                                             </td>
                                             <td>
-                                                <p class="ff--primary fw--500 fs--14 text-darkest ">{{conversation.timeStr}}</p>
+                                                <p class="ff--primary fw--500 fs--14 text-darkest ">{{conversation.time}}</p>
                                                 <p v-show="conversation.unreadCount !== 0" class="ff--primary fw--500 fs--14 mr--8 text-darkest " style="color: red">{{conversation.unreadCount}}</p>
                                             </td>
                                         </tr>
@@ -212,7 +238,7 @@
                                                 <div class="author ml--20 float--right text-center">
                                                     <div class="avatar" data-overlay="0.1" data-overlay-color="primary">
                                                         <a :href="'member-personal.html?id=' + userInfo.id">
-                                                            <img :src="'img/members-img/' + userInfo.head_url" alt="">
+                                                            <img :src="'img/members-img/' + userInfo.headUrl" alt="">
                                                         </a>
                                                     </div>
                                                     <!--<div class="name text-darkest">
@@ -234,14 +260,14 @@
                                                 <div class="author mr--20 float--left text-center">
                                                     <div class="avatar" data-overlay="0.1" data-overlay-color="primary">
                                                         <a :href="'member-personal.html?id=' + message.partner.id">
-                                                            <img :src="'img/members-img/' + message.partner.head_url" alt="">
+                                                            <img :src="'img/members-img/' + message.partner.headUrl" alt="">
                                                         </a>
                                                     </div>
                                                     <!--<div class="name text-darkest">
                                                         <p><a href="member-activity-personal.html">user2</a></p>
                                                     </div>-->
                                                     <div class="role text-uppercase">
-                                                        <p class="date float--left">{{message.timeStr}}</p>
+                                                        <p class="date float--left">{{message.time}}</p>
                                                     </div>
                                                 </div>
                                                 <div class="content pt--20 fs--14 ov--h">
@@ -281,6 +307,26 @@
             </div>
         </section>
         <!-- Page Wrapper End -->
+
+        <!-- Footer Section Start -->
+        <footer id="footer" class="footer--section">
+            <!-- Footer Widgets Start -->
+            <!-- Footer Widgets End -->
+
+            <!-- Footer Extra Start -->
+            <!-- Footer Extra End -->
+
+            <!-- Footer Copyright Start -->
+            <div class="footer--copyright pt--30 pb--30 bg-darkest">
+                <div class="container">
+                    <div class="text fw--500 fs--14 text-center">
+                        <p>© 2023 吴文杰. 保留所有权利</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Copyright End -->
+        </footer>
+        <!-- Footer Section End -->
     </div>
     <!-- Wrapper End -->
 
