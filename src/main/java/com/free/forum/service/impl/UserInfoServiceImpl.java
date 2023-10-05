@@ -8,6 +8,7 @@ import com.free.forum.mapper.MessageMapper;
 import com.free.forum.mapper.UserInfoMapper;
 import com.free.forum.service.UserInfoService;
 import com.free.forum.utils.Md5Util;
+import com.free.forum.utils.UuidUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class UserInfoServiceImpl implements UserInfoService {
      *
      * @param userInfo 用户信息
      * @return 用户信息
-     * @throws Exception 例外
+     * @throws Exception encodeByMd5
      */
     @Override
     public UserInfo login(UserInfo userInfo) throws Exception {
@@ -44,5 +45,20 @@ public class UserInfoServiceImpl implements UserInfoService {
         } else {
             throw new LoginException("用户名或密码错误");
         }
+    }
+
+
+    /**
+     * 注册
+     *
+     * @param userInfo 用户信息
+     * @throws Exception encodeByMd5
+     */
+    @Override
+    public void register(UserInfo userInfo) throws Exception {
+        userInfo.setId(UuidUtil.getShortUuid());
+        String password = Md5Util.encodeByMd5(userInfo.getPassword());
+        userInfo.setPassword(password);
+        userInfoMapper.insert(userInfo);
     }
 }

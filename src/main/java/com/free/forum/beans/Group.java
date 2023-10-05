@@ -13,12 +13,14 @@ import java.util.List;
 public class Group {
     private String id;
     private String name;
+    // 简介
     private String brief;
     private Date createTime;
     private String image;
+    // 管理员 id
     private String admin;
     @TableField(exist = false)
-    private Integer memberCount; // 小组人数
+    private Integer memberCount;
     @TableField(exist = false)
     private List<Member> members;
     @TableField(exist = false)
