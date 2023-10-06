@@ -11,6 +11,11 @@ public class UuidUtil {
             "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"
     };
 
+
+    /**
+     * 用于生成 8 位短 uuid
+     * @return 字符串
+     */
     public static String getShortUuid() {
         StringBuilder shortBuffer = new StringBuilder();
         String uuid = UUID.randomUUID().toString().replace("-", "");

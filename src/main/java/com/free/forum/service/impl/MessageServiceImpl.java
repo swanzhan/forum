@@ -30,26 +30,26 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public PageInfo<Message> conversationList(Integer pageNum, String userId) {
         PageHelper.startPage(pageNum, 15);
-        List<Message> conversationList = messageMapper.selectConversationList(userId);
+        List<Message> conversationList = messageMapper.findConversationList(userId);
         PageInfo<Message> pageInfo = new PageInfo<>(conversationList);
         for (Message conversation : conversationList) {
             String conversationId = conversation.getConversationId();
             // 封装未读消息数
-            Integer unreadCount = messageMapper.selectConversationUnreadCount(conversationId, userId);
+            Integer unreadCount = messageMapper.findConversationUnreadCount(conversationId, userId);
             conversation.setUnreadCount(unreadCount);
             // 封装用户信息
             String partnerId = conversationId.replace(userId, "");
             UserInfo partner = userInfoMapper.selectById(partnerId);
             conversation.setPartner(partner);
             // 封装最新的一条消息
-            Message message = messageMapper.selectConversationByConversationId(conversationId);
+            Message message = messageMapper.findConversationByConversationId(conversationId);
             conversation.setContent(message.getContent());
         }
         return pageInfo;
     }
 
     /**
-     * 聊天框
+     * 聊天消息
      *
      * @param pageNum   页码
      * @param userId    用户 ID
@@ -60,10 +60,10 @@ public class MessageServiceImpl implements MessageService {
     public PageInfo<Message> conversation(Integer pageNum, String userId, String partnerId) {
         String conversationId = getConversationId(userId, partnerId);
         PageHelper.startPage(pageNum, 7);
-        // 根据 conversationId 查聊天
-        List<Message> conversation = messageMapper.selectConversation(conversationId);
+        // 根据 conversationId 查聊天消息
+        List<Message> conversation = messageMapper.findConversation(conversationId);
         // 设置当前 conversation status = 1
-        messageMapper.updateMessageStatus(conversationId, userId);
+        messageMapper.modifyMessageStatus(conversationId, userId);
         for (Message message : conversation) {
             // 封装用户信息
             UserInfo partner = userInfoMapper.selectById(conversationId.replace(userId, ""));

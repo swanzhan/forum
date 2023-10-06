@@ -15,13 +15,13 @@ import java.util.List;
  */
 @Mapper
 public interface MessageMapper extends BaseMapper<Message> {
-    List<Message> selectConversationList(String userId);
+    List<Message> findConversationList(String userId);
 
-    Integer selectConversationUnreadCount(@Param("conversationId") String conversationId, @Param("receiveId") String receiveId);
+    Integer findConversationUnreadCount(@Param("conversationId") String conversationId, @Param("receiveId") String receiveId);
 
-    Message selectConversationByConversationId(String conversationId);
+    Message findConversationByConversationId(String conversationId);
 
-    List<Message> selectConversation(String conversationId);
+    List<Message> findConversation(String conversationId);
 
-    void updateMessageStatus(@Param("conversationId") String conversationId, @Param("receiveId") String receiveId);
+    void modifyMessageStatus(@Param("conversationId") String conversationId, @Param("receiveId") String receiveId);
 }

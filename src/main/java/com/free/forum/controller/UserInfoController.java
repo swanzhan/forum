@@ -26,14 +26,13 @@ public class UserInfoController {
      */
     @RequestMapping("login")
     public ResultInfo login(@RequestBody UserInfo userInfo) {
-        ResultInfo resultInfo = new ResultInfo();
+        ResultInfo resultInfo;
         try {
             UserInfo user = userInfoService.login(userInfo);
-            resultInfo.setFlag(true);
+            resultInfo = new ResultInfo(true);
             resultInfo.setData(user);
         } catch (LoginException e) {
-            resultInfo.setFlag(false);
-            resultInfo.setErrorMsg(e.getMessage());
+            resultInfo = new ResultInfo(false, e.getMessage());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -49,13 +48,13 @@ public class UserInfoController {
      */
     @RequestMapping("register")
     public ResultInfo register(@Valid @RequestBody UserInfo userInfo, BindingResult bindingResult) throws Exception {
-        ResultInfo resultInfo = new ResultInfo();
+        ResultInfo resultInfo;
         if (bindingResult.hasErrors()) {
-            resultInfo.setErrorMsg(bindingResult.getAllErrors().get(0).getDefaultMessage());
-            resultInfo.setFlag(false);
+            resultInfo = new ResultInfo(false,
+                    bindingResult.getAllErrors().get(0).getDefaultMessage());
         } else {
             userInfoService.register(userInfo);
-            resultInfo.setFlag(true);
+            resultInfo = new ResultInfo(true);
         }
         return resultInfo;
     }
