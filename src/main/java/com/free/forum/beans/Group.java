@@ -2,6 +2,7 @@ package com.free.forum.beans;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.lang.reflect.Member;
@@ -16,6 +17,8 @@ public class Group {
     // 简介
     private String brief;
     @TableField("createTime")
+    // 局部处理时间
+    @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd")
     private Date createTime;
     private String image;
     // 管理员 id
