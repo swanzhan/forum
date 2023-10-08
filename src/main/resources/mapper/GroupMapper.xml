@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.free.forum.mapper.GroupMapper">
+    <resultMap id="groupMap" type="Group">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="brief" column="brief"/>
+        <result property="creatTime" column="creatTime"/>
+        <result property="admin" column="admin"/>
+        <association property="memberCount" column="id" javaType="Integer"
+                     select="com.free.forum.mapper.GroupMapper.findMemberCountByGroupId"/>
+    </resultMap>
+    <select id="findGroups" resultMap="groupMap">
+        SELECT
+            *
+        FROM
+            `group`
+    </select>
+    <select id="findGroupsByKeyword" resultMap="groupMap">
+        SELECT
+            *
+        FROM
+            `group`
+        WHERE
+            name LIKE "%" #{keyword} "%"
+        OR
+            brief LIKE "%" #{keyword} "%"
+    </select>
+    <select id="findMemberCountByGroupId" parameterType="String" resultType="Integer">
+        SELECT
+            count(*)
+        FROM
+            user_group
+        WHERE
+            groupId = #{groupId}
+    </select>
+</mapper>
