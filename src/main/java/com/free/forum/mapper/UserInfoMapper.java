@@ -3,6 +3,7 @@ package com.free.forum.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.free.forum.beans.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * UserInfo 用户映射
@@ -12,4 +13,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserInfoMapper extends BaseMapper<UserInfo> {
+    Integer findFocusStatus(@Param("userId") String userId, @Param("friendId") String friendId);
 }

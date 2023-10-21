@@ -9,8 +9,12 @@ import com.free.forum.mapper.UserInfoMapper;
 import com.free.forum.service.UserInfoService;
 import com.free.forum.utils.Md5Util;
 import com.free.forum.utils.UuidUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -60,5 +64,56 @@ public class UserInfoServiceImpl implements UserInfoService {
         String password = Md5Util.encodeByMd5(userInfo.getPassword());
         userInfo.setPassword(password);
         userInfoMapper.insert(userInfo);
+    }
+
+    /**
+     * 用户列表
+     *
+     * @param pageNum 页码
+     * @param userId  用户 ID
+     * @return 页面信息
+     */
+    @Override
+    public PageInfo<UserInfo> userList(Integer pageNum, String userId) {
+        if (userId == null) {
+            PageHelper.startPage(pageNum, 8);
+            List<UserInfo> list = userInfoMapper.selectList(null);
+            return new PageInfo<>(list);
+        } else {
+            PageHelper.startPage(pageNum, 8);
+            List<UserInfo> list = userInfoMapper.selectList(new QueryWrapper<UserInfo>().ne("id", userId));
+            for (UserInfo userInfo : list) {
+                userInfo.setFocusFlag(userInfoMapper.findFocusStatus(userId, userInfo.getId()) == 1);
+            }
+            return new PageInfo<>(list);
+        }
+    }
+
+    /**
+     * 成员计数
+     *
+     * @return 整数
+     */
+    @Override
+    public Integer memberCount() {
+        return Math.toIntExact(userInfoMapper.selectCount(null));
+    }
+
+    /**
+     * 成员搜索
+     *
+     * @param keyword 关键词
+     * @return 页面信息
+     */
+    @Override
+    public PageInfo<UserInfo> memberSearch(String keyword) {
+        PageHelper.startPage(1,8);
+        QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("username", keyword).or()
+                    .like("nickname", keyword).or()
+                    .like("ip", keyword).or()
+                    .like("introduce", keyword);
+        List<UserInfo> list = userInfoMapper.selectList(queryWrapper);
+        return new PageInfo<>(list);
     }
 }
