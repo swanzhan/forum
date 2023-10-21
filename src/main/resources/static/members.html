@@ -338,7 +338,7 @@
                 },
                 search() {
                     const _this = this;
-                    axios.get("/free/userInfo/memberearch",
+                    axios.get("/free/userInfo/memberSearch",
                         {params: {keyword: _this.keyword}}
                     ).then(function (response) {
                         _this.pageInfo = response.data;

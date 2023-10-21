@@ -2,11 +2,14 @@ package com.free.forum.controller;
 
 import com.free.forum.beans.Group;
 import com.free.forum.service.GroupService;
+import com.free.forum.utils.ResultInfo;
 import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("group")
@@ -44,5 +47,51 @@ public class GroupController {
     @RequestMapping("groupSearch")
     public PageInfo<Group> groupSearch(String keyword) {
         return groupService.groupSearch(keyword);
+    }
+
+    /**
+     * 组主页
+     *
+     * @param groupId 组 ID
+     * @return 结果信息
+     */
+    @RequestMapping("groupHome")
+    public ResultInfo groupHome(@RequestParam String groupId) {
+        ResultInfo resultInfo = new ResultInfo();
+        Group group = groupService.groupHomeByGroupId(groupId);
+        resultInfo.setFlag(true);
+        resultInfo.setData(group);
+        return resultInfo;
+    }
+
+    /**
+     * 加入组
+     *
+     * @param userId  用户 ID
+     * @param groupId 组 ID
+     * @param type    类型
+     * @return 结果信息
+     */
+    @RequestMapping("joinGroup")
+    public ResultInfo joinGroup(String userId, String groupId, Integer type) {
+        boolean flag = groupService.joinGroup(userId, groupId, type);
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setFlag(flag);
+        return resultInfo;
+    }
+
+    /**
+     * 随机组
+     *
+     * @param groupId 组 ID
+     * @return 结果信息
+     */
+    @RequestMapping("groupRandom")
+    public ResultInfo groupRandom(@RequestParam("groupId") String groupId) {
+        List<Group> list = groupService.groupRandom(groupId);
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setFlag(true);
+        resultInfo.setData(list);
+        return resultInfo;
     }
 }
