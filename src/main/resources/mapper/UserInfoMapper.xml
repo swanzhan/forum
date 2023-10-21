@@ -19,6 +19,22 @@
         FROM
             user_friend
         WHERE
-            userId = #{userId} AND friendId = #{friendId}
+            userId = #{userId}
+        AND
+            friendId = #{friendId}
     </select>
+    <insert id="insertByUserIdAndMemberId" parameterType="Map">
+        INSERT INTO
+            user_friend
+        VALUES
+            (#{userId}, #{memberId})
+    </insert>
+    <delete id="deleteByUserIdAndMemberId" parameterType="Map">
+        DELETE FROM
+            user_friend
+        WHERE
+            userId = #{userId}
+        AND
+            friendId = #{memberId}
+    </delete>
 </mapper>

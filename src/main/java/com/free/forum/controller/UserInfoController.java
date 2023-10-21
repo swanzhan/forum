@@ -94,4 +94,20 @@ public class UserInfoController {
     public PageInfo<UserInfo> memberSearch(String keyword) {
         return userInfoService.memberSearch(keyword);
     }
+
+    /**
+     * 成员关注(单向)
+     *
+     * @param userId   用户 ID
+     * @param memberId 被关注人 ID
+     * @param type     关注 OR 取关
+     * @return 结果信息
+     */
+    @RequestMapping("focusMember")
+    public ResultInfo focusMember(String userId, String memberId, Integer type) {
+        userInfoService.focusMember(userId, memberId, type);
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setFlag(true);
+        return resultInfo;
+    }
 }

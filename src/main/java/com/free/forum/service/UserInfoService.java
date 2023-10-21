@@ -13,4 +13,6 @@ public interface UserInfoService {
     Integer memberCount();
 
     PageInfo<UserInfo> memberSearch(String keyword);
+
+    void focusMember(String userId, String memberId, Integer type);
 }

@@ -14,4 +14,8 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface UserInfoMapper extends BaseMapper<UserInfo> {
     Integer findFocusStatus(@Param("userId") String userId, @Param("friendId") String friendId);
+
+    void insertByUserIdAndMemberId(@Param("userId") String userId, @Param("memberId") String memberId);
+
+    void deleteByUserIdAndMemberId(@Param("userId")String userId, @Param("memberId") String memberId);
 }

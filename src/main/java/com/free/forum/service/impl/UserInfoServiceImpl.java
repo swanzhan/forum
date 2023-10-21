@@ -116,4 +116,20 @@ public class UserInfoServiceImpl implements UserInfoService {
         List<UserInfo> list = userInfoMapper.selectList(queryWrapper);
         return new PageInfo<>(list);
     }
+
+    /**
+     * 成员关注(单向)
+     *
+     * @param userId   用户 ID
+     * @param memberId 被关注人 ID
+     * @param type     关注 OR 取关
+     */
+    @Override
+    public void focusMember(String userId, String memberId, Integer type) {
+        if (type == 0) {
+            userInfoMapper.insertByUserIdAndMemberId(userId, memberId);
+        } else {
+            userInfoMapper.deleteByUserIdAndMemberId(userId, memberId);
+        }
+    }
 }
