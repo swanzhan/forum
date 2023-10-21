@@ -9,4 +9,6 @@ public interface PostService {
     PageInfo<Post> groupPosts(Integer pageNum, String groupId, String sortStatus);
 
     List<Post> groupTrendPosts(String groupId);
+
+    void releasePost(Post post);
 }

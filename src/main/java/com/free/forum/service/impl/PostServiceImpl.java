@@ -1,22 +1,20 @@
 package com.free.forum.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.free.forum.beans.Group;
 import com.free.forum.beans.Post;
 import com.free.forum.beans.UserInfo;
 import com.free.forum.mapper.CommentMapper;
 import com.free.forum.mapper.PostMapper;
 import com.free.forum.mapper.UserInfoMapper;
 import com.free.forum.service.PostService;
-import com.free.forum.utils.ResultInfo;
+import com.free.forum.utils.UuidUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -70,5 +68,16 @@ public class PostServiceImpl implements PostService {
         return postMapper.selectList(queryWrapper);
     }
 
-
+    /**
+     * 发布帖子
+     *
+     * @param post 帖子
+     */
+    @Override
+    public void releasePost(Post post) {
+        post.setId(UuidUtil.getShortUuid());
+        post.setReleaseTime(new Date());
+        post.setView(0);
+        postMapper.insert(post);
+    }
 }
