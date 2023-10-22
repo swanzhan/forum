@@ -1,6 +1,7 @@
 package com.free.forum.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.free.forum.beans.Group;
 import com.free.forum.beans.Post;
 import com.free.forum.beans.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
@@ -35,4 +36,10 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
     List<UserInfo> findByGroupIdAndUserId(@Param("groupId") String groupId, @Param("userId") String userId);
 
     List<Post> findUserFavoritePostsById(String userId);
+
+    List<Group> findMemberGroupsByUserId(String userId);
+
+    List<UserInfo> findMemberFocusByUserId(String userId);
+
+    List<UserInfo> findMemberFansByUserId(String userId);
 }

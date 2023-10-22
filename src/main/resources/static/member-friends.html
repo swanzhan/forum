@@ -114,7 +114,7 @@
                             </a>
                         </li>
                         <li class="dropdown">
-                            <a href="activity.html" class="btn-link active">
+                            <a href="activity.html" class="btn-link">
                                 <span>动态</span>
                             </a>
                             <ul class="dropdown-menu">
@@ -204,7 +204,7 @@
                                     <div class="member--item online">
                                         <div  class="img img-circle">
                                             <a :href="'member-personal.html?id=' + member.id" class="btn-link">
-                                                <img :src="'img/members-img/' + member.head_url" alt="">
+                                                <img :src="'img/members-img/' + member.headUrl" alt="">
                                             </a>
                                         </div>
 
@@ -344,7 +344,7 @@
                 //     userId = this.userInfo.id;
                 // }
                 // this.friendType = !this.friendType;
-                axios.get("/free/userInfo/friendList", {
+                axios.get("/free/userInfo/memberFriends", {
                     params: {
                         pageNum: pageNum,
                         userId: _this.memberInfo.id,

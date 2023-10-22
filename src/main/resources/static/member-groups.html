@@ -114,7 +114,7 @@
                                 </a>
                             </li>
                             <li class="dropdown">
-                                <a href="activity.html" class="btn-link active">
+                                <a href="activity.html" class="btn-link">
                                     <span>动态</span>
                                 </a>
                                 <ul class="dropdown-menu">
@@ -218,7 +218,7 @@
                                                 </div>
 
                                                 <div class="meta">
-                                                    <p><i class="fa mr--8 fa-clock-o"></i>创建时间：{{group.createTimeStr}}</p>
+                                                    <p><i class="fa mr--8 fa-clock-o"></i>创建时间：{{group.createTime}}</p>
                                                     <p><i class="fa mr--8 fa-user-o"></i>小组人数：{{group.memberCount}}</p>
                                                 </div>
 
@@ -341,7 +341,7 @@
                     const _this = this;
                     let groupId;
                     this.memberInfo = JSON.parse(sessionStorage.getItem("memberInfo"))
-                    axios.get("/free/userInfo/groupList", {
+                    axios.get("/free/userInfo/memberGroups", {
                         params: {
                             pageNum: pageNum,
                             userId: _this.memberInfo.id,
@@ -351,26 +351,7 @@
                         _this.pageInfo = response.data;
                         _this.userGroups = response.data.list;
                     });
-                },
-
-               /* count() {
-                    const _this = this;
-                    axios.get("/free/userInfo/count"
-                    ).then(function (response) {
-                        _this.memberCount = response.data;
-                    });
-                },*/
-                /*search() {
-                    const _this = this;
-                    this.memberInfo = JSON.parse(sessionStorage.getItem("memberInfo"))
-
-                    axios.get("/free/userInfo/groupSearch",
-                        {params: {keyword: _this.keyword}}
-                    ).then(function (response) {
-                        _this.pageInfo = response.data;
-                        _this.userGroups = response.data.list;
-                    });
-                }*/
+                }
             }
         })
     </script>

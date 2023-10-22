@@ -1,5 +1,6 @@
 package com.free.forum.service;
 
+import com.free.forum.beans.Group;
 import com.free.forum.beans.UserInfo;
 import com.github.pagehelper.PageInfo;
 
@@ -19,4 +20,8 @@ public interface UserInfoService {
     UserInfo userDetail(String userId);
 
     UserInfo change(UserInfo userInfo);
+
+    PageInfo<Group> memberGroups(Integer pageNum, String userId);
+
+    PageInfo<UserInfo> memberFriends(Integer pageNum, String userId, boolean friendType);
 }

@@ -67,4 +67,31 @@
             WHERE userId = #{userId}
         )
     </select>
+    <select id="findMemberFocusByUserId" parameterType="String" resultType="UserInfo">
+        SELECT *
+        FROM users
+        WHERE id IN (
+            SELECT friendId
+            FROM user_friend
+            WHERE userId = #{userId}
+        )
+    </select>
+    <select id="findMemberFansByUserId" parameterType="String" resultType="UserInfo">
+        SELECT *
+        FROM users
+        WHERE id IN (
+            SELECT userId
+            FROM user_friend
+            WHERE friendId = #{friendId}
+        )
+    </select>
+    <select id="findMemberGroupsByUserId" parameterType="String" resultType="Group">
+        SELECT *
+        FROM `group`
+        WHERE id IN (
+            SELECT groupId
+            FROM user_group
+            WHERE userId = #{userId}
+        )
+    </select>
 </mapper>

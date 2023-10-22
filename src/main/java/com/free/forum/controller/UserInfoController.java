@@ -1,5 +1,6 @@
 package com.free.forum.controller;
 
+import com.free.forum.beans.Group;
 import com.free.forum.beans.UserInfo;
 import com.free.forum.exception.LoginException;
 import com.free.forum.service.UserInfoService;
@@ -132,5 +133,30 @@ public class UserInfoController {
         resultInfo.setData(user);
         resultInfo.setFlag(true);
         return resultInfo;
+    }
+
+    /**
+     * 成员好友
+     *
+     * @param pageNum    页码
+     * @param userId     用户 ID
+     * @param friendType 好友类型
+     * @return 页面信息
+     */
+    @RequestMapping("memberFriends")
+    public PageInfo<UserInfo> memberFriends(@RequestParam(defaultValue = "1") Integer pageNum, String userId, boolean friendType) {
+        return userInfoService.memberFriends(pageNum, userId, friendType);
+    }
+
+    /**
+     * 成员组
+     *
+     * @param pageNum 页码
+     * @param userId  用户 ID
+     * @return 页面信息
+     */
+    @RequestMapping("memberGroups")
+    public PageInfo<Group> memberGroups(@RequestParam(defaultValue = "1") Integer pageNum, String userId) {
+        return userInfoService.memberGroups(pageNum, userId);
     }
 }

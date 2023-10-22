@@ -1,6 +1,7 @@
 package com.free.forum.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.free.forum.beans.Group;
 import com.free.forum.beans.Message;
 import com.free.forum.beans.Post;
 import com.free.forum.beans.UserInfo;
@@ -110,12 +111,12 @@ public class UserInfoServiceImpl implements UserInfoService {
      */
     @Override
     public PageInfo<UserInfo> memberSearch(String keyword) {
-        PageHelper.startPage(1,8);
+        PageHelper.startPage(1, 8);
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.like("username", keyword).or()
-                    .like("nickname", keyword).or()
-                    .like("ip", keyword).or()
-                    .like("introduce", keyword);
+                .like("nickname", keyword).or()
+                .like("ip", keyword).or()
+                .like("introduce", keyword);
         List<UserInfo> list = userInfoMapper.selectList(queryWrapper);
         return new PageInfo<>(list);
     }
@@ -162,5 +163,44 @@ public class UserInfoServiceImpl implements UserInfoService {
     public UserInfo change(UserInfo userInfo) {
         userInfoMapper.update(userInfo, new QueryWrapper<UserInfo>().eq("id", userInfo.getId()));
         return userInfoMapper.selectById(userInfo.getId());
+    }
+
+    /**
+     * 成员好友
+     *
+     * @param pageNum    页码
+     * @param userId     用户 ID
+     * @param friendType 好友类型
+     * @return 页面信息
+     */
+    @Override
+    public PageInfo<UserInfo> memberFriends(Integer pageNum, String userId, boolean friendType) {
+        PageHelper.startPage(pageNum, 8);
+        List<UserInfo> list;
+        if (friendType) {
+            list = userInfoMapper.findMemberFocusByUserId(userId);
+        } else {
+            list = userInfoMapper.findMemberFansByUserId(userId);
+        }
+        return new PageInfo<>(list);
+    }
+
+    /**
+     * 成员组
+     *
+     * @param pageNum 页码
+     * @param userId  用户 ID
+     * @return 页面信息
+     */
+    @Override
+    public PageInfo<Group> memberGroups(Integer pageNum, String userId) {
+        PageHelper.startPage(pageNum, 8);
+        List<Group> list = userInfoMapper.findMemberGroupsByUserId(userId);
+        PageInfo<Group> pageInfo = new PageInfo<>(list);
+        for (Group group : pageInfo.getList()) {
+            Integer memberCount = userInfoMapper.findMemberCountByGroupId(group.getId());
+            group.setMemberCount(memberCount);
+        }
+        return pageInfo;
     }
 }
