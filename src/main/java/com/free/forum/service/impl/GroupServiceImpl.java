@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -85,6 +84,7 @@ public class GroupServiceImpl implements GroupService {
         Group group = groupMapper.selectOne(new QueryWrapper<Group>().eq("id", groupId));
         Integer memberCount = userInfoMapper.findMemberCountByGroupId(group.getId());
         group.setMemberCount(memberCount);
+        group.setAdminInfo(userInfoMapper.selectById(group.getAdmin()));
         return group;
     }
 
@@ -177,10 +177,9 @@ public class GroupServiceImpl implements GroupService {
                 .groupBy("userId")
                 .orderByDesc("COUNT(*)")
                 .last("limit 0, " + count);
+        List<String> userIdList = new ArrayList<>();
         List<Post> postList = postMapper.selectList(postQueryWrapper);
-        List<String> userIdList = postList.stream()
-                .map(Post::getUserId)
-                .collect(Collectors.toList());
+        postList.forEach(post -> userIdList.add(post.getUserId()));
         if (userIdList.isEmpty()) {
             return new ArrayList<>();
         }

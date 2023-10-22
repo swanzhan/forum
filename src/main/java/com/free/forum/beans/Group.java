@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import java.lang.reflect.Member;
 import java.util.Date;
 import java.util.List;
 
@@ -24,9 +23,11 @@ public class Group {
     // 管理员 id
     private String admin;
     @TableField(exist = false)
+    private UserInfo adminInfo;
+    @TableField(exist = false)
     private Integer memberCount;
     @TableField(exist = false)
-    private List<Member> members;
+    private List<UserInfo> members;
     @TableField(exist = false)
     private List<Post> hotPosts;
 }
