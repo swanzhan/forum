@@ -5,59 +5,57 @@
 
 <mapper namespace="com.free.forum.mapper.UserInfoMapper">
     <select id="findMemberCountByGroupId" parameterType="String" resultType="Integer">
-        SELECT
-            count(*)
-        FROM
-            user_group
-        WHERE
-            groupId = #{groupId}
+        SELECT COUNT(*)
+        FROM user_group
+        WHERE groupId = #{groupId}
     </select>
     <select id="findFocusStatus" parameterType="Map" resultType="Integer">
-        SELECT
-            count(*)
-        FROM
-            user_friend
-        WHERE
-            userId = #{userId}
-        AND
-            friendId = #{friendId}
+        SELECT COUNT(*)
+        FROM user_friend
+        WHERE userId = #{userId}
+        AND friendId = #{friendId}
     </select>
     <insert id="insertByUserIdAndMemberId" parameterType="Map">
-        INSERT INTO
-            user_friend
+        INSERT INTO user_friend
         VALUES
-            (#{userId}, #{memberId})
+        (#{userId}, #{memberId})
     </insert>
     <delete id="deleteByUserIdAndMemberId" parameterType="Map">
-        DELETE FROM
-            user_friend
-        WHERE
-            userId = #{userId}
-        AND
-            friendId = #{memberId}
+        DELETE
+        FROM user_friend
+        WHERE userId = #{userId} AND friendId = #{memberId}
     </delete>
     <select id="countUserGroupMembership" parameterType="Map" resultType="Integer">
-        SELECT
-            count(*)
-        FROM
-            user_group
-        WHERE
-            userId = #{userId}
-        AND
-            groupId = #{groupId}
+        SELECT COUNT(*)
+        FROM user_group
+        WHERE userId = #{userId} AND groupId = #{groupId}
     </select>
     <insert id="insertByUserIdAndGroupId" parameterType="Map">
-        INSERT INTO
-            user_group
+        INSERT INTO user_group
         VALUES
-            (#{userId}, #{groupId})
+        (#{userId}, #{groupId})
     </insert>
     <delete id="deleteByUserIdAndGroupId" parameterType="Map">
-        DELETE FROM
-            user_group
-        WHERE
-            userId = #{userId}
-        AND
-            groupId = #{groupId}
+        DELETE
+        FROM user_group
+        WHERE userId = #{userId} AND groupId = #{groupId}
     </delete>
+    <select id="findByGroupId" parameterType="String" resultType="UserInfo">
+        SELECT *
+        FROM users
+        WHERE id IN (
+            SELECT userId
+            FROM user_group
+            WHERE groupId = #{groupId}
+        )
+    </select>
+    <select id="findByGroupIdAndUserId" parameterType="Map" resultType="UserInfo">
+        SELECT *
+        FROM users
+        WHERE id IN (
+            SELECT userId
+            FROM user_group
+            WHERE groupId = #{groupId}
+        ) AND id != #{userId}
+    </select>
 </mapper>

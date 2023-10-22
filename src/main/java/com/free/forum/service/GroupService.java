@@ -1,6 +1,7 @@
 package com.free.forum.service;
 
 import com.free.forum.beans.Group;
+import com.free.forum.beans.UserInfo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -17,4 +18,8 @@ public interface GroupService {
     boolean joinGroup(String userId, String groupId, Integer type);
 
     List<Group> groupRandom(String groupId);
+
+    PageInfo<UserInfo> memberList(Integer pageNum, String groupId, String userId);
+
+    List<UserInfo> activeGroupMember(String groupId);
 }

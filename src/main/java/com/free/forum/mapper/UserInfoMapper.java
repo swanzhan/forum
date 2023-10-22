@@ -5,6 +5,8 @@ import com.free.forum.beans.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * UserInfo 用户映射
  *
@@ -26,4 +28,8 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
     void insertByUserIdAndGroupId(@Param("userId") String userId, @Param("groupId") String groupId);
 
     void deleteByUserIdAndGroupId(@Param("userId") String userId, @Param("groupId") String groupId);
+
+    List<UserInfo> findByGroupId(String groupId);
+
+    List<UserInfo> findByGroupIdAndUserId(@Param("groupId") String groupId, @Param("userId") String userId);
 }

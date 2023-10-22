@@ -5,54 +5,36 @@
 
 <mapper namespace="com.free.forum.mapper.MessageMapper">
     <select id="findConversationList" parameterType="String" resultType="Message">
-        SELECT
-            conversationId,
-            MAX(time) AS time
-        FROM
-            message
-        WHERE
-            sendId = #{userId} OR receiveId = #{userId}
-        GROUP BY
-            conversationId
-        ORDER BY
-            time DESC
+        SELECT conversationId, MAX(time) AS time
+        FROM message
+        WHERE sendId = #{userId} OR receiveId = #{userId}
+        GROUP BY conversationId
+        ORDER BY time DESC
     </select>
     <select id="findConversationUnreadCount" parameterType="Map" resultType="Integer">
         SELECT COUNT(*)
         FROM message
-        WHERE
-            conversationId = #{conversationId}
+        WHERE conversationId = #{conversationId}
         AND receiveId = #{receiveId}
         AND status = 0
     </select>
     <select id="findConversationByConversationId" parameterType="String" resultType="Message">
-        SELECT
-            *
-        FROM
-            message
-        WHERE
-            conversationId = #{conversationId}
-        ORDER BY
-            time DESC
-        LIMIT
-            1
+        SELECT *
+        FROM message
+        WHERE conversationId = #{conversationId}
+        ORDER BY time DESC
+        LIMIT 1
     </select>
     <select id="findConversation" parameterType="String" resultType="Message">
-        SELECT
-            *
-        FROM
-            message
-        WHERE
-            conversationId = #{conversationId}
-        ORDER BY
-            time DESC
+        SELECT *
+        FROM message
+        WHERE conversationId = #{conversationId}
+        ORDER BY time DESC
     </select>
     <select id="modifyMessageStatus" parameterType="Map">
         UPDATE message
-        SET
-            status = 1
-        WHERE
-            conversationId = #{conversationId}
+        SET status = 1
+        WHERE conversationId = #{conversationId}
         AND receiveId = #{receiveId}
     </select>
 </mapper>

@@ -3,7 +3,10 @@ package com.free.forum.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.free.forum.beans.Group;
+import com.free.forum.beans.Post;
+import com.free.forum.beans.UserInfo;
 import com.free.forum.mapper.GroupMapper;
+import com.free.forum.mapper.PostMapper;
 import com.free.forum.mapper.UserInfoMapper;
 import com.free.forum.service.GroupService;
 import com.github.pagehelper.PageHelper;
@@ -15,12 +18,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class GroupServiceImpl implements GroupService {
     private final GroupMapper groupMapper;
     private final UserInfoMapper userInfoMapper;
+    private final PostMapper postMapper;
 
     /**
      * 组列表
@@ -108,6 +113,12 @@ public class GroupServiceImpl implements GroupService {
         }
     }
 
+    /**
+     * 随机组
+     *
+     * @param groupId 组 ID
+     * @return 列表
+     */
     @Override
     public List<Group> groupRandom(String groupId) {
         Long count = groupMapper.selectCount(null);
@@ -126,5 +137,55 @@ public class GroupServiceImpl implements GroupService {
             group.setMemberCount(memberCount);
         }
         return list;
+    }
+
+    /**
+     * 组成员列表
+     *
+     * @param pageNum 页码
+     * @param groupId 组 ID
+     * @param userId  用户 ID
+     * @return 页面信息
+     */
+    @Override
+    public PageInfo<UserInfo> memberList(Integer pageNum, String groupId, String userId) {
+        PageHelper.startPage(pageNum, 8);
+        List<UserInfo> list;
+        if (userId == null) {
+            list = userInfoMapper.findByGroupId(groupId);
+        } else {
+            list = userInfoMapper.findByGroupIdAndUserId(groupId, userId);
+            for (UserInfo userInfo : list) {
+                userInfo.setFocusFlag(userInfoMapper.findFocusStatus(userId, userInfo.getId()) == 1);
+            }
+        }
+        return new PageInfo<>(list);
+    }
+
+    /**
+     * 组活跃成员
+     *
+     * @param groupId 组 ID
+     * @return 列表
+     */
+    @Override
+    public List<UserInfo> activeGroupMember(String groupId) {
+        // 指定要返回的活跃成员数量
+        int count = 3;
+        QueryWrapper<Post> postQueryWrapper = new QueryWrapper<>();
+        postQueryWrapper.select("userId")
+                .groupBy("userId")
+                .orderByDesc("COUNT(*)")
+                .last("limit 0, " + count);
+        List<Post> postList = postMapper.selectList(postQueryWrapper);
+        List<String> userIdList = postList.stream()
+                .map(Post::getUserId)
+                .collect(Collectors.toList());
+        if (userIdList.isEmpty()) {
+            return new ArrayList<>();
+        }
+        QueryWrapper<UserInfo> userInfoQueryWrapper = new QueryWrapper<>();
+        userInfoQueryWrapper.in("id", userIdList);
+        return userInfoMapper.selectList(userInfoQueryWrapper);
     }
 }

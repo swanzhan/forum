@@ -31,10 +31,9 @@ public class PostController {
      * @return 页面信息
      */
     @RequestMapping("groupPosts")
-    public PageInfo<Post> groupPosts(@RequestParam(defaultValue = "1") Integer pageNum, String groupId, String sortStatus){
+    public PageInfo<Post> groupPosts(@RequestParam(defaultValue = "1") Integer pageNum, String groupId, String sortStatus) {
         return postService.groupPosts(pageNum, groupId, sortStatus);
     }
-
 
     /**
      * 组热门帖子
@@ -43,7 +42,7 @@ public class PostController {
      * @return 列表
      */
     @RequestMapping("groupTrendPosts")
-    public List<Post> groupTrendPosts(String groupId){
+    public List<Post> groupTrendPosts(String groupId) {
         return postService.groupTrendPosts(groupId);
     }
 
@@ -58,7 +57,7 @@ public class PostController {
      */
     @RequestMapping("releasePost")
     public ResultInfo releasePost(HttpServletRequest request, Post post, @RequestParam("pictureFile") MultipartFile[] files) throws IOException {
-        for(MultipartFile file:files){
+        for (MultipartFile file : files) {
             String filename = file.getOriginalFilename();
             String uuid = UUID.randomUUID().toString().replaceAll("-", "");
             String extension = filename.substring(filename.lastIndexOf("."));
@@ -70,10 +69,9 @@ public class PostController {
             }
             file.transferTo(new File(parent, filename));
             // 关联上传后的图片路径
-            if(post.getPic()!=null){
-                post.setPic(post.getPic()+"/"+filename);
-            }
-            else{
+            if (post.getPic() != null) {
+                post.setPic(post.getPic() + "/" + filename);
+            } else {
                 post.setPic(filename);
             }
         }

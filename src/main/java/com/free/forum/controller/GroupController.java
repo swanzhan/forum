@@ -1,6 +1,7 @@
 package com.free.forum.controller;
 
 import com.free.forum.beans.Group;
+import com.free.forum.beans.UserInfo;
 import com.free.forum.service.GroupService;
 import com.free.forum.utils.ResultInfo;
 import com.github.pagehelper.PageInfo;
@@ -93,5 +94,29 @@ public class GroupController {
         resultInfo.setFlag(true);
         resultInfo.setData(list);
         return resultInfo;
+    }
+
+    /**
+     * 组成员列表
+     *
+     * @param pageNum 页码
+     * @param groupId 组 ID
+     * @param userId  用户 ID
+     * @return 页面信息
+     */
+    @RequestMapping("memberList")
+    public PageInfo<UserInfo> memberList(@RequestParam(defaultValue = "1") Integer pageNum, String groupId, String userId) {
+        return groupService.memberList(pageNum, groupId, userId);
+    }
+
+    /**
+     * 组活跃成员
+     *
+     * @param groupId 组 ID
+     * @return 列表
+     */
+    @RequestMapping("activeGroupMember")
+    public List<UserInfo> activeGroupMember(String groupId) {
+        return groupService.activeGroupMember(groupId);
     }
 }
