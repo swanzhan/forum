@@ -118,4 +118,19 @@ public class UserInfoController {
     public UserInfo userDetail(@PathVariable String userId) throws Exception {
         return userInfoService.userDetail(userId);
     }
+
+    /**
+     * 修改个人资料
+     *
+     * @param userInfo 用户信息
+     * @return 结果信息
+     */
+    @RequestMapping("change")
+    public ResultInfo change(@RequestBody UserInfo userInfo){
+        UserInfo user = userInfoService.change(userInfo);
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setData(user);
+        resultInfo.setFlag(true);
+        return resultInfo;
+    }
 }

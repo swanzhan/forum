@@ -151,4 +151,16 @@ public class UserInfoServiceImpl implements UserInfoService {
         user.setPosts(postList);
         return user;
     }
+
+    /**
+     * 修改个人资料
+     *
+     * @param userInfo 用户信息
+     * @return 用户信息
+     */
+    @Override
+    public UserInfo change(UserInfo userInfo) {
+        userInfoMapper.update(userInfo, new QueryWrapper<UserInfo>().eq("id", userInfo.getId()));
+        return userInfoMapper.selectById(userInfo.getId());
+    }
 }

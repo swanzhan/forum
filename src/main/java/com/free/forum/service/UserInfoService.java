@@ -17,4 +17,6 @@ public interface UserInfoService {
     void focusMember(String userId, String memberId, Integer type);
 
     UserInfo userDetail(String userId);
+
+    UserInfo change(UserInfo userInfo);
 }
