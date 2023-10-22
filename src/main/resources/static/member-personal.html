@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- ==== Document Title ==== -->
-    <title>SociFly - Multipurpose Social Network HTML5 Template</title>
+    <title>Free</title>
     
     <!-- ==== Document Meta ==== -->
     <meta name="author" content="">
@@ -69,8 +69,8 @@
                         <!-- Header Navbar Logo Start -->
                         <div class="header--navbar-logo navbar-brand">
                             <a href="index.html">
-                                <img src="img/logo-white.png" class="normal" alt="">
-                                <img src="img/logo-black.png" class="sticky" alt="">
+                                <img src="img/black.jpg" class="normal" alt="">
+                                <img src="img/white.jpg" class="sticky" alt="">
                             </a>
                         </div>
                         <!-- Header Navbar Logo End -->
@@ -78,18 +78,25 @@
 
                     <div id="headerNav" class="navbar-collapse collapse float--right">
                         <!-- Header Nav Links Start -->
-                        <ul class="header--nav-links style--1 nav ff--primary">
+                        <ul v-if="userInfo != null" class="header--nav-links style--1 nav ff--primary">
                             <li>
                                 <a href="index.html" class="btn-link">
                                     <span>主页</span>
                                 </a>
                             </li>
-                            <li><a href="activity.html"><span>动态</span></a></li>
-                            <li><a href="members.html"><span>成员</span></a></li>
-                            <li><a href="groups.html"><span>小组</span></a></li>
-
-                            <li v-if="userInfo != null" class="dropdown">
-                                <a href="#" class="btn-link">
+                            <li class="dropdown">
+                                <a href="activity.html" class="btn-link">
+                                    <span>动态</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="groups.html">小组</a></li>
+                                    <li></li>
+                                    <li><a href="members.html" class="btn-link">成员</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="message.html" class="btn-link"><span>消息({{userInfo.messageCount}})</span></a></li>
+                            <li class="dropdown">
+                                <a href="#" class="btn-link active">
                                     <i class="fa mr--8 fa-user-o"></i>
                                     <span>{{userInfo.username}}</span>
                                 </a>
@@ -99,7 +106,26 @@
                                     <li><a :href="'member-personal.html?id=' + userInfo.id">个人</a></li>
                                 </ul>
                             </li>
-                            <li v-else class="dropdown">
+                        </ul>
+                        <!-- Header Nav Links End -->
+                        <!-- Header Nav Links Start -->
+                        <ul v-else class="header--nav-links style--1 nav ff--primary">
+                            <li>
+                                <a href="index.html" class="btn-link">
+                                    <span>主页</span>
+                                </a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="activity.html" class="btn-link active">
+                                    <span>动态</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="groups.html">小组</a></li>
+                                    <li></li>
+                                    <li><a href="members.html">成员</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
                                 <a href="#" class="btn-link">
                                     <i class="fa mr--8 fa-user-o"></i>
                                     <span>帐号</span>
@@ -147,7 +173,7 @@
                                     <li class="active"><a href="member-personal.html">动态</a></li>
                                     <li ><a href="member-profile.html">个人信息</a></li>
                                     <li><a href="member-friends.html">好友</a></li>
-                                    <li><a href="member-groups.html">群组</a></li>
+                                    <li><a href="member-groups.html">小组</a></li>
                                 </ul>
                             </div>
                             <!-- Content Nav End -->
@@ -161,17 +187,6 @@
                                         <li :class="{active:flag==2}"><a v-show="isUser" @click.prevent="flag=2,loadPosts()" href="#">好友圈</a></li>
                                     </ul>
                                 </div>
-
-                                <!--<div class="filter&#45;&#45;options float&#45;&#45;right">
-                                    <label>
-                                        <span class="fs&#45;&#45;14 ff&#45;&#45;primary fw&#45;&#45;500 text-darker">显示顺序 :</span>
-
-                                        <select name="activityfilter" class="form-control form-sm" data-trigger="selectmenu">
-                                            <option value="sendTime">发布时间</option>
-                                            <option value="newComment">最新评论</option>
-                                        </select>
-                                    </label>
-                                </div>-->
                             </div>
                             <!-- Filter Nav End -->
 
@@ -315,6 +330,20 @@
             </div>
         </section>
         <!-- Page Wrapper End -->
+
+        <!-- Footer Section Start -->
+        <footer id="footer" class="footer--section">
+            <!-- Footer Copyright Start -->
+            <div class="footer--copyright pt--30 pb--30 bg-darkest">
+                <div class="container">
+                    <div class="text fw--500 fs--14 text-center">
+                        <p>© 2023 吴文杰. 保留所有权利</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Copyright End -->
+        </footer>
+        <!-- Footer Section End -->
 
     </div>
     <!-- Wrapper End -->
