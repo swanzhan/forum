@@ -2,9 +2,11 @@ package com.free.forum.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.free.forum.beans.Message;
+import com.free.forum.beans.Post;
 import com.free.forum.beans.UserInfo;
 import com.free.forum.exception.LoginException;
 import com.free.forum.mapper.MessageMapper;
+import com.free.forum.mapper.PostMapper;
 import com.free.forum.mapper.UserInfoMapper;
 import com.free.forum.service.UserInfoService;
 import com.free.forum.utils.Md5Util;
@@ -22,6 +24,7 @@ import java.util.List;
 public class UserInfoServiceImpl implements UserInfoService {
     private final UserInfoMapper userInfoMapper;
     private final MessageMapper messageMapper;
+    private final PostMapper postMapper;
 
     /**
      * 登录
@@ -131,5 +134,21 @@ public class UserInfoServiceImpl implements UserInfoService {
         } else {
             userInfoMapper.deleteByUserIdAndMemberId(userId, memberId);
         }
+    }
+
+    /**
+     * 用户详细信息
+     *
+     * @param userId 用户 ID
+     * @return 用户信息
+     */
+    @Override
+    public UserInfo userDetail(String userId) {
+        UserInfo user = userInfoMapper.selectById(userId);
+        QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("userId", userId);
+        List<Post> postList = postMapper.selectList(queryWrapper);
+        user.setPosts(postList);
+        return user;
     }
 }

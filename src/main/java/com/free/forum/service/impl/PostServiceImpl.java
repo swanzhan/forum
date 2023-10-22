@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.free.forum.beans.Post;
 import com.free.forum.beans.UserInfo;
 import com.free.forum.mapper.CommentMapper;
+import com.free.forum.mapper.GroupMapper;
 import com.free.forum.mapper.PostMapper;
 import com.free.forum.mapper.UserInfoMapper;
 import com.free.forum.service.PostService;
@@ -14,16 +15,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
-    private final RedisTemplate redisTemplate;
+    private final CommentMapper commentMapper;
+    private final GroupMapper groupMapper;
     private final PostMapper postMapper;
     private final UserInfoMapper userInfoMapper;
-    private final CommentMapper commentMapper;
+    private final RedisTemplate redisTemplate;
 
     /**
      * 小组帖子
@@ -79,5 +82,31 @@ public class PostServiceImpl implements PostService {
         post.setReleaseTime(new Date());
         post.setView(0);
         postMapper.insert(post);
+    }
+
+    /**
+     * 用户帖子
+     *
+     * @param pageNum 页码
+     * @param userId  用户 ID
+     * @param flag    类型
+     * @return 页面信息
+     */
+    @Override
+    public PageInfo<Post> userPosts(Integer pageNum, String userId, Integer flag) {
+        PageHelper.startPage(pageNum, 4);
+        List<Post> list = new ArrayList<>();
+        if (flag == 0) {
+            // 用户发布的帖子
+            list = postMapper.selectList(new QueryWrapper<Post>().eq("userId", userId));
+        } else if (flag == 1) {
+            // 用户收藏的帖子
+            list = userInfoMapper.findUserFavoritePostsById(userId);
+        }
+        for (Post post : list) {
+            post.setUser(userInfoMapper.selectById(post.getUserId()));
+            post.setGroup(groupMapper.selectById(post.getGroupId()));
+        }
+        return new PageInfo<>(list);
     }
 }

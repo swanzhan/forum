@@ -80,4 +80,18 @@ public class PostController {
         resultInfo.setFlag(true);
         return resultInfo;
     }
+
+
+    /**
+     * 用户帖子
+     *
+     * @param pageNum 页码
+     * @param userId  用户 ID
+     * @param flag    分类
+     * @return 页面信息
+     */
+    @RequestMapping("userPosts")
+    public PageInfo<Post> userPosts(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam String userId, @RequestParam Integer flag) {
+        return postService.userPosts(pageNum, userId, flag);
+    }
 }

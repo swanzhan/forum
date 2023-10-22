@@ -7,10 +7,7 @@ import com.free.forum.utils.ResultInfo;
 import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -108,5 +105,17 @@ public class UserInfoController {
         ResultInfo resultInfo = new ResultInfo();
         resultInfo.setFlag(true);
         return resultInfo;
+    }
+
+    /**
+     * 用户详细信息
+     *
+     * @param userId 编号
+     * @return 用户信息
+     * @throws Exception 异常
+     */
+    @RequestMapping(value = "userDetail/{userId}",method = RequestMethod.GET)
+    public UserInfo userDetail(@PathVariable String userId) throws Exception {
+        return userInfoService.userDetail(userId);
     }
 }

@@ -58,4 +58,13 @@
             WHERE groupId = #{groupId}
         ) AND id != #{userId}
     </select>
+    <select id="findUserFavoritePostsById" parameterType="String" resultType="Post">
+        SELECT *
+        FROM post
+        WHERE id IN (
+            SELECT postId
+            FROM user_post
+            WHERE userId = #{userId}
+        )
+    </select>
 </mapper>

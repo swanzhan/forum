@@ -149,7 +149,7 @@
         <div class="cover--header pt--80 text-center" data-bg-img="img/cover-header-img/bg-01.jpg" data-overlay="0.6" data-overlay-color="white">
             <div class="container">
                 <div class="cover--avatar online" data-overlay="0.3" data-overlay-color="primary">
-                    <img :src="'img/members-img/' + memberInfo.head_url" alt="">
+                    <img :src="'img/members-img/' + memberInfo.headUrl" alt="">
                 </div>
 
                 <div class="cover--user-name">
@@ -182,16 +182,16 @@
                             <div class="filter--nav pb--60 clearfix">
                                 <div class="filter--links float--left">
                                     <ul class="nav ff--primary">
-                                        <li :class="{active:flag==0}"><a @click.prevent="flag=0,loadPosts()" href="#">个人主页</a></li>
-                                        <li :class="{active:flag==1}"><a v-show="isUser" @click.prevent="flag=1,loadPosts()" href="#">收藏夹</a></li>
-                                        <li :class="{active:flag==2}"><a v-show="isUser" @click.prevent="flag=2,loadPosts()" href="#">好友圈</a></li>
+                                        <li :class="{active: flag === 0}"><a @click.prevent="flag = 0, loadPosts()" href="#">个人主页</a></li>
+                                        <li :class="{active: flag === 1}"><a v-show="isUser" @click.prevent="flag = 1, loadPosts()" href="#">收藏夹</a></li>
+<!--                                        <li :class="{active: flag === 2}"><a v-show="isUser" @click.prevent="flag = 2, loadPosts()" href="#">好友圈</a></li>-->
                                     </ul>
                                 </div>
                             </div>
                             <!-- Filter Nav End -->
 
                             <!-- Activity List Start -->
-                            <div v-show="flag==0" class="activity--list">
+                            <div v-show="flag === 0" class="activity--list">
                                 <!-- Activity Items Start -->
                                 <ul class="activity--items nav">
                                     <li v-for="post in postList">
@@ -199,7 +199,7 @@
                                         <div class="activity--item">
                                             <div class="activity--avatar">
                                                 <a :href="'member-personal.html?id=' + memberInfo.id">
-                                                    <img :src="'img/members-img/' + memberInfo.head_url" alt="">
+                                                    <img :src="'img/members-img/' + memberInfo.headUrl" alt="">
                                                 </a>
                                             </div>
 
@@ -210,7 +210,7 @@
                                                 </div>
 
                                                 <div class="activity--meta fs--12">
-                                                    <p><i class="fa mr--8 fa-clock-o"></i>{{post.releaseTimeStr}}</p>
+                                                    <p><i class="fa mr--8 fa-clock-o"></i>{{post.releaseTime}}</p>
                                                 </div>
 
                                                 <div class="activity--content">
@@ -227,7 +227,7 @@
                                 </ul>
                                 <!-- Activity Items End -->
                             </div>
-                            <div v-show="flag==1" class="activity--list">
+                            <div v-show="flag === 1" class="activity--list">
                                 <!-- Activity Items Start -->
                                 <ul v-if="postList.length===0" class="activity--items nav">
                                     <li>
@@ -245,7 +245,7 @@
                                         <div class="activity--item">
                                             <div class="activity--avatar">
                                                 <a :href="'member-personal.html?id=' + post.user.id">
-                                                    <img :src="'img/members-img/' + post.user.head_url" alt="">
+                                                    <img :src="'img/members-img/' + post.user.headUrl" alt="">
                                                 </a>
                                             </div>
 
@@ -256,7 +256,7 @@
                                                 </div>
 
                                                 <div class="activity--meta fs--12">
-                                                    <p><i class="fa mr--8 fa-clock-o"></i>{{post.releaseTimeStr}}</p>
+                                                    <p><i class="fa mr--8 fa-clock-o"></i>{{post.releaseTime}}</p>
                                                 </div>
 
                                                 <div class="activity--content">
@@ -273,42 +273,42 @@
                                 </ul>
                                 <!-- Activity Items End -->
                             </div>
-                            <div v-show="flag==2" class="activity--list">
-                                <!-- Activity Items Start -->
-                                <ul class="activity--items nav">
+                            <!--<div v-show="flag==2" class="activity&#45;&#45;list">
+                                &lt;!&ndash; Activity Items Start &ndash;&gt;
+                                <ul class="activity&#45;&#45;items nav">
                                     <li v-for="post in postList">
-                                        <!-- Activity Item Start -->
-                                        <div class="activity--item">
-                                            <div class="activity--avatar">
+                                        &lt;!&ndash; Activity Item Start &ndash;&gt;
+                                        <div class="activity&#45;&#45;item">
+                                            <div class="activity&#45;&#45;avatar">
                                                 <a :href="'member-personal.html?id=' + post.user.id">
                                                     <img :src="'img/members-img/' + post.user.head_url" alt="">
                                                 </a>
                                             </div>
 
-                                            <div class="activity--info fs--14">
-                                                <div class="activity--header">
+                                            <div class="activity&#45;&#45;info fs&#45;&#45;14">
+                                                <div class="activity&#45;&#45;header">
                                                     <p><a :href="'member-personal.html?id=' + post.user.id">{{post.user.username}}</a>
                                                         在&nbsp<a :href="'group-home.html?id=' + post.groupId">{{post.group.name}}</a>&nbsp发表了帖子</p>
                                                 </div>
 
-                                                <div class="activity--meta fs--12">
-                                                    <p><i class="fa mr--8 fa-clock-o"></i>{{post.releaseTimeStr}}</p>
+                                                <div class="activity&#45;&#45;meta fs&#45;&#45;12">
+                                                    <p><i class="fa mr&#45;&#45;8 fa-clock-o"></i>{{post.releaseTimeStr}}</p>
                                                 </div>
 
-                                                <div class="activity--content">
+                                                <div class="activity&#45;&#45;content">
                                                     <p>{{post.content}}</p>
                                                 </div>
 
-                                                <div class="activity--action fw--700">
+                                                <div class="activity&#45;&#45;action fw&#45;&#45;700">
                                                     <a :href="'post-details.html?id=' + post.id">更多...</a>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- Activity Item End -->
+                                        &lt;!&ndash; Activity Item End &ndash;&gt;
                                     </li>
                                 </ul>
-                                <!-- Activity Items End -->
-                            </div>
+                                &lt;!&ndash; Activity Items End &ndash;&gt;
+                            </div>-->
                             <!-- Activity List End -->
                         </div>
 
@@ -365,18 +365,18 @@
     <script>
         const app = new Vue({
             el: "#app",
-            data:{
-                flag:0,
-                userInfo:{},
+            data: {
+                flag: 0,
+                userInfo: {},
                 memberId: "",
                 memberInfo: {},
-                postList:[],
-                pageInfo:[],
+                postList: [],
+                pageInfo: [],
                 isUser: false
             },
-            methods:{
+            methods: {
                 // 加载登录的user
-                loadUser(){
+                loadUser() {
                     this.userInfo = JSON.parse(sessionStorage.getItem("userInfo"))
                 },
                 logout() {
@@ -387,17 +387,19 @@
                 // 加载当前页面的member
                 loadMember() {
                     let _this = this;
-                    axios.get("/free/userInfo/details/" + _this.memberId).then(function (response) {
+                    axios.get("/free/userInfo/userDetail/" + _this.memberId).then(function (response) {
                         _this.memberInfo = response.data;
                         sessionStorage.setItem("memberInfo", JSON.stringify(_this.memberInfo));
                     })
                 },
-                loadPosts(pageNum){
+                loadPosts(pageNum) {
                     let _this = this;
                     this.memberInfo = JSON.parse(sessionStorage.getItem("memberInfo"))
-                    axios.get("/free/post/list", {params:{
-                            pageNum:pageNum, userId: this.memberInfo.id, flag:this.flag
-                        }}).then(function (response) {
+                    axios.get("/free/post/userPosts", {
+                        params: {
+                            pageNum: pageNum, userId: this.memberInfo.id, flag: this.flag
+                        }
+                    }).then(function (response) {
                         _this.postList = response.data.list;
                         _this.pageInfo = response.data;
                     })
@@ -413,7 +415,7 @@
                 }
                 let _this = this;
                 // 异步请求加延时
-                setTimeout(function (){
+                setTimeout(function () {
                     _this.loadPosts();
                     if (_this.memberInfo.id === _this.userInfo.id) {
                         _this.isUser = true;

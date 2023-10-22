@@ -11,4 +11,6 @@ public interface PostService {
     List<Post> groupTrendPosts(String groupId);
 
     void releasePost(Post post);
+
+    PageInfo<Post> userPosts(Integer pageNum, String userId, Integer flag);
 }
