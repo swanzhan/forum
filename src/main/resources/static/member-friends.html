@@ -306,13 +306,13 @@
             memberCount: 0,
             memberInfo: {},
             friendType: true,
-            isUser:false
+            isUser: false
         },
-        created: function() {
+        created: function () {
             this.loadUser();
             this.loadMember();
             this.friendList(1);
-            if(this.memberInfo.id===this.userInfo.id){
+            if (this.memberInfo.id === this.userInfo.id) {
                 this.isUser = true;
             }
         },
@@ -350,7 +350,7 @@
                         userId: _this.memberInfo.id,
                         friendType: _this.friendType
                     }
-                }).then(function(response) {
+                }).then(function (response) {
                     _this.pageInfo = response.data;
                     _this.friendMembers = response.data.list;
                 });

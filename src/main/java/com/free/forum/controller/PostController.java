@@ -81,7 +81,6 @@ public class PostController {
         return resultInfo;
     }
 
-
     /**
      * 用户帖子
      *
@@ -94,4 +93,6 @@ public class PostController {
     public PageInfo<Post> userPosts(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam String userId, @RequestParam Integer flag) {
         return postService.userPosts(pageNum, userId, flag);
     }
+
+
 }

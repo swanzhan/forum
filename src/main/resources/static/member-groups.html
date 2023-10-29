@@ -7,7 +7,7 @@
 
     <!-- ==== Document Title ==== -->
     <title>Free</title>
-    
+
     <!-- ==== Document Meta ==== -->
     <meta name="author" content="">
     <meta name="description" content="">
@@ -17,195 +17,200 @@
     <link rel="icon" href="favicon.png" type="image/png">
 
     <!-- ==== Google Font ==== -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700%7CRoboto:300,400,400i,500,700">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700%7CRoboto:300,400,400i,500,700">
 
     <!-- ==== Plugins Bundle ==== -->
     <link rel="stylesheet" href="css/plugins.min.css">
-    
+
     <!-- ==== Main Stylesheet ==== -->
     <link rel="stylesheet" href="style.css">
-    
+
     <!-- ==== Responsive Stylesheet ==== -->
     <link rel="stylesheet" href="css/responsive-style.css">
-    
+
     <!-- ==== Color Scheme Stylesheet ==== -->
     <link rel="stylesheet" href="css/colors/color-1.css" id="changeColorScheme">
-    
+
     <!-- ==== Custom Stylesheet ==== -->
     <link rel="stylesheet" href="css/custom.css">
 
     <!-- ==== HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries ==== -->
     <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
 <body>
 
-    <!-- Preloader Start -->
-    <div id="preloader">
-        <div class="preloader--inner"></div>
-    </div>
-    <!-- Preloader End -->
+<!-- Preloader Start -->
+<div id="preloader">
+    <div class="preloader--inner"></div>
+</div>
+<!-- Preloader End -->
 
-    <!-- Wrapper Start -->
-    <div id="content" class="wrapper">
-        <!-- Header Section Start -->
-        <header class="header--section style--1">
+<!-- Wrapper Start -->
+<div id="content" class="wrapper">
+    <!-- Header Section Start -->
+    <header class="header--section style--1">
 
-            <!-- Header Navbar Start -->
-            <div class="header--navbar navbar bg-black" data-trigger="sticky">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#headerNav">
-                            <span class="sr-only">Toggle Navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-
-                        <!-- Header Navbar Logo Start -->
-                        <div class="header--navbar-logo navbar-brand">
-                            <a href="index.html">
-                                <img src="img/black.jpg" class="normal" alt="">
-                                <img src="img/white.jpg" class="sticky" alt="">
-                            </a>
-                        </div>
-                        <!-- Header Navbar Logo End -->
-                    </div>
-
-                    <div id="headerNav" class="navbar-collapse collapse float--right">
-                        <!-- Header Nav Links Start -->
-                        <ul v-if="userInfo != null" class="header--nav-links style--1 nav ff--primary">
-                            <li>
-                                <a href="index.html" class="btn-link">
-                                    <span>主页</span>
-                                </a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="activity.html" class="btn-link">
-                                    <span>动态</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="groups.html">小组</a></li>
-                                    <li></li>
-                                    <li><a href="members.html" class="btn-link">成员</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="message.html" class="btn-link"><span>消息({{userInfo.messageCount}})</span></a></li>
-                            <li class="dropdown">
-                                <a href="#" class="btn-link active">
-                                    <i class="fa mr--8 fa-user-o"></i>
-                                    <span>{{userInfo.username}}</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a @click.prevent="logout()">登出</a></li>
-                                    <li></li>
-                                    <li><a :href="'member-personal.html?id=' + userInfo.id">个人</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <!-- Header Nav Links End -->
-                        <!-- Header Nav Links Start -->
-                        <ul v-else class="header--nav-links style--1 nav ff--primary">
-                            <li>
-                                <a href="index.html" class="btn-link">
-                                    <span>主页</span>
-                                </a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="activity.html" class="btn-link">
-                                    <span>动态</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="groups.html">小组</a></li>
-                                    <li></li>
-                                    <li><a href="members.html">成员</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#" class="btn-link">
-                                    <i class="fa mr--8 fa-user-o"></i>
-                                    <span>帐号</span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="login.html">登录</a></li>
-                                    <li></li>
-                                    <li><a href="register.html">注册</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <!-- Header Nav Links End -->
-                    </div>
-                </div>
-            </div>
-            <!-- Header Navbar End -->
-        </header>
-        <!-- Header Section End -->
-
-        <!-- Cover Header Start -->
-        <div class="cover--header pt--80 text-center" data-bg-img="img/cover-header-img/bg-01.jpg" data-overlay="0.6" data-overlay-color="white">
+        <!-- Header Navbar Start -->
+        <div class="header--navbar navbar bg-black" data-trigger="sticky">
             <div class="container">
-                <div class="cover--avatar online" data-overlay="0.3" data-overlay-color="primary">
-                    <img src="img/cover-header-img/avatar-01.jpg" alt="">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#headerNav">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <!-- Header Navbar Logo Start -->
+                    <div class="header--navbar-logo navbar-brand">
+                        <a href="index.html">
+                            <img src="img/black.jpg" class="normal" alt="">
+                            <img src="img/white.jpg" class="sticky" alt="">
+                        </a>
+                    </div>
+                    <!-- Header Navbar Logo End -->
                 </div>
 
-                <div class="cover--user-name">
-                    <h2 class="h3 fw--600">{{memberInfo.username}}</h2>
+                <div id="headerNav" class="navbar-collapse collapse float--right">
+                    <!-- Header Nav Links Start -->
+                    <ul v-if="userInfo != null" class="header--nav-links style--1 nav ff--primary">
+                        <li>
+                            <a href="index.html" class="btn-link">
+                                <span>主页</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="activity.html" class="btn-link">
+                                <span>动态</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="groups.html">小组</a></li>
+                                <li></li>
+                                <li><a href="members.html" class="btn-link">成员</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="message.html" class="btn-link"><span>消息({{userInfo.messageCount}})</span></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="btn-link active">
+                                <i class="fa mr--8 fa-user-o"></i>
+                                <span>{{userInfo.username}}</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a @click.prevent="logout()">登出</a></li>
+                                <li></li>
+                                <li><a :href="'member-personal.html?id=' + userInfo.id">个人</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- Header Nav Links End -->
+                    <!-- Header Nav Links Start -->
+                    <ul v-else class="header--nav-links style--1 nav ff--primary">
+                        <li>
+                            <a href="index.html" class="btn-link">
+                                <span>主页</span>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="activity.html" class="btn-link">
+                                <span>动态</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="groups.html">小组</a></li>
+                                <li></li>
+                                <li><a href="members.html">成员</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="btn-link">
+                                <i class="fa mr--8 fa-user-o"></i>
+                                <span>帐号</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="login.html">登录</a></li>
+                                <li></li>
+                                <li><a href="register.html">注册</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- Header Nav Links End -->
                 </div>
-
             </div>
         </div>
-        <!-- Cover Header End -->
+        <!-- Header Navbar End -->
+    </header>
+    <!-- Header Section End -->
 
-        <!-- Page Wrapper Start -->
-        <section class="page--wrapper pt--80 pb--20">
-            <div class="container">
-                <div class="row">
-                    <!-- Main Content Start -->
-                    <div class="main--content col-md-12 pb--60" data-trigger="stickyScroll">
-                        <div class="main--content-inner drop--shadow" style="height: 1000px;position: relative">
-                            <div>
-                                <!-- Content Nav Start -->
-                                <div class="content--nav pb--30">
-                                    <ul class="nav ff--primary fs--14 fw--500 bg-lighter">
-                                        <li ><a href="member-personal.html">动态</a></li>
-                                        <li><a href="member-profile.html">个人信息</a></li>
-                                        <li><a href="member-friends.html">好友</a></li>
-                                        <li class="active"><a href="member-groups.html">小组</a></li>
-                                    </ul>
+    <!-- Cover Header Start -->
+    <div class="cover--header pt--80 text-center" data-bg-img="img/cover-header-img/bg-01.jpg" data-overlay="0.6"
+         data-overlay-color="white">
+        <div class="container">
+            <div class="cover--avatar online" data-overlay="0.3" data-overlay-color="primary">
+                <img src="img/cover-header-img/avatar-01.jpg" alt="">
+            </div>
+
+            <div class="cover--user-name">
+                <h2 class="h3 fw--600">{{memberInfo.username}}</h2>
+            </div>
+
+        </div>
+    </div>
+    <!-- Cover Header End -->
+
+    <!-- Page Wrapper Start -->
+    <section class="page--wrapper pt--80 pb--20">
+        <div class="container">
+            <div class="row">
+                <!-- Main Content Start -->
+                <div class="main--content col-md-12 pb--60" data-trigger="stickyScroll">
+                    <div class="main--content-inner drop--shadow" style="height: 1000px;position: relative">
+                        <div>
+                            <!-- Content Nav Start -->
+                            <div class="content--nav pb--30">
+                                <ul class="nav ff--primary fs--14 fw--500 bg-lighter">
+                                    <li><a href="member-personal.html">动态</a></li>
+                                    <li><a href="member-profile.html">个人信息</a></li>
+                                    <li><a href="member-friends.html">好友</a></li>
+                                    <li class="active"><a href="member-groups.html">小组</a></li>
+                                </ul>
+                            </div>
+                            <!-- Content Nav End -->
+
+                            <!-- Filter Nav Start -->
+                            <div class="filter--nav pb--30 clearfix">
+
+                                <div class="filter--link float--left">
+                                    <h2 class="h4">所有小组 : {{groupCount}}</h2>
                                 </div>
-                                <!-- Content Nav End -->
 
-                                <!-- Filter Nav Start -->
-                                <div class="filter--nav pb--30 clearfix">
+                                <!--<div class="filter&#45;&#45;options float&#45;&#45;right">
+                                    <label>
+                                        <span class="fs&#45;&#45;14 ff&#45;&#45;primary fw&#45;&#45;500 text-darker">显示顺序 :</span>
 
-                                    <div class="filter--link float--left">
-                                        <h2 class="h4">所有小组 : {{groupCount}}</h2>
-                                    </div>
+                                        <select name="membersfilter" class="form-control form-sm" data-trigger="selectmenu">
+                                            <option value="last-active" selected>字母顺序</option>
+                                            <option value="most-members">最大人数</option>
+                                            <option value="newly-created">创建时间</option>
+                                        </select>
+                                    </label>
+                                </div>-->
 
-                                    <!--<div class="filter&#45;&#45;options float&#45;&#45;right">
-                                        <label>
-                                            <span class="fs&#45;&#45;14 ff&#45;&#45;primary fw&#45;&#45;500 text-darker">显示顺序 :</span>
+                            </div>
+                            <!-- Filter Nav End -->
 
-                                            <select name="membersfilter" class="form-control form-sm" data-trigger="selectmenu">
-                                                <option value="last-active" selected>字母顺序</option>
-                                                <option value="most-members">最大人数</option>
-                                                <option value="newly-created">创建时间</option>
-                                            </select>
-                                        </label>
-                                    </div>-->
-
-                                </div>
-                                <!-- Filter Nav End -->
-                            
                             <!-- Box Items Start -->
                             <div class="box--items">
                                 <div class="row gutter--15 MasonryRow">
                                     <div v-for="group in userGroups" class="col-md-4 col-xs-6 col-xxs-12">
                                         <!-- Box Item Start -->
                                         <div class="box--item text-center">
-                                            <a :href="'group-home.html?id=' + group.id" class="btn-link" data-overlay="0.1">
+                                            <a :href="'group-home.html?id=' + group.id" class="btn-link"
+                                               data-overlay="0.1">
                                                 <img :src="'img/group-img/'+ group.image" alt="">
                                             </a>
 
@@ -213,13 +218,16 @@
 
                                                 <div class="title">
                                                     <h2 class="h6">
-                                                        <a :href="'group-home.html?id=' + group.id" class="btn-link">{{group.name}}</a>
+                                                        <a :href="'group-home.html?id=' + group.id"
+                                                           class="btn-link">{{group.name}}</a>
                                                     </h2>
                                                 </div>
 
                                                 <div class="meta">
-                                                    <p><i class="fa mr--8 fa-clock-o"></i>创建时间：{{group.createTime}}</p>
-                                                    <p><i class="fa mr--8 fa-user-o"></i>小组人数：{{group.memberCount}}</p>
+                                                    <p><i class="fa mr--8 fa-clock-o"></i>创建时间：{{group.createTime}}
+                                                    </p>
+                                                    <p><i class="fa mr--8 fa-user-o"></i>小组人数：{{group.memberCount}}
+                                                    </p>
                                                 </div>
 
                                                 <div class="desc text-darker">
@@ -227,7 +235,8 @@
                                                 </div>
 
                                                 <div class="action">
-                                                    <a :href="'group-home.html?id=' + group.id">小组详情<i class="fa ml--10 fa-caret-right"></i></a>
+                                                    <a :href="'group-home.html?id=' + group.id">小组详情<i
+                                                            class="fa ml--10 fa-caret-right"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -241,9 +250,12 @@
                             <div class="page--count pt--30" style="position: absolute;bottom: 20px">
                                 <label class="ff--primary fs--14 fw--500 text-darker" style="display: block">
                                     <span>页数</span>
-                                    <a @click.prevent="groupList(pageInfo.prePage)" class="btn-link"><i class="fa fa-caret-left"></i></a>
-                                    <a v-for="index in pageInfo.navigatepageNums" @click.prevent="groupList(index)" class="btn-link" :class="{active: pageInfo.pageNum === index}">{{index}}</a>
-                                    <a @click.prevent="groupList(pageInfo.nextPage)" href="#" class="btn-link"><i class="fa fa-caret-right"></i></a>
+                                    <a @click.prevent="groupList(pageInfo.prePage)" class="btn-link"><i
+                                            class="fa fa-caret-left"></i></a>
+                                    <a v-for="index in pageInfo.navigatepageNums" @click.prevent="groupList(index)"
+                                       class="btn-link" :class="{active: pageInfo.pageNum === index}">{{index}}</a>
+                                    <a @click.prevent="groupList(pageInfo.nextPage)" href="#" class="btn-link"><i
+                                            class="fa fa-caret-right"></i></a>
 
                                     <span>共 {{pageInfo.pages}} 页</span>
                                 </label>
@@ -251,110 +263,104 @@
                             <!-- Page Count End -->
                         </div>
 
-                        </div>
-                    </div>
-                    <!-- Main Content End -->
-
-                </div>
-            </div>
-        </section>
-        <!-- Page Wrapper End -->
-
-        <!-- Footer Section Start -->
-        <footer id="footer" class="footer--section">
-            <!-- Footer Copyright Start -->
-            <div class="footer--copyright pt--30 pb--30 bg-darkest">
-                <div class="container">
-                    <div class="text fw--500 fs--14 text-center">
-                        <p>© 2023 吴文杰. 保留所有权利</p>
                     </div>
                 </div>
+                <!-- Main Content End -->
+
             </div>
-            <!-- Footer Copyright End -->
-        </footer>
-        <!-- Footer Section End -->
+        </div>
+    </section>
+    <!-- Page Wrapper End -->
 
-    </div>
-    <!-- Wrapper End -->
+    <!-- Footer Section Start -->
+    <footer id="footer" class="footer--section">
+        <!-- Footer Copyright Start -->
+        <div class="footer--copyright pt--30 pb--30 bg-darkest">
+            <div class="container">
+                <div class="text fw--500 fs--14 text-center">
+                    <p>© 2023 吴文杰. 保留所有权利</p>
+                </div>
+            </div>
+        </div>
+        <!-- Footer Copyright End -->
+    </footer>
+    <!-- Footer Section End -->
 
-    <!-- Back To Top Button Start -->
-    <div id="backToTop">
-        <a href="#" class="btn"><i class="fa fa-caret-up"></i></a>
-    </div>
-    <!-- Back To Top Button End -->
+</div>
+<!-- Wrapper End -->
 
-    <!-- ==== Plugins Bundle ==== -->
-    <script src="js/plugins.min.js"></script>
+<!-- Back To Top Button Start -->
+<div id="backToTop">
+    <a href="#" class="btn"><i class="fa fa-caret-up"></i></a>
+</div>
+<!-- Back To Top Button End -->
 
-    <!-- ==== Main Script ==== -->
-    <script src="js/main.js"></script>
+<!-- ==== Plugins Bundle ==== -->
+<script src="js/plugins.min.js"></script>
 
-    <script src="js/vue.js"></script>
-    <script src="js/axios.js"></script>
-    <script>
-        new Vue({
-            el: "#content",
-            data: {
-                userInfo: {},
-                memberInfo: {},
-                group:{},
-                pageInfo: {},
-                userGroups: [],
-                groupCount:5,
-                isUser:false
-            },
-            created: function() {
-                this.loadGroup();
-                this.loadUser();
-                this.loadMember();
-                var userInfo = sessionStorage.getItem("userInfo");
-                if (userInfo) {
-                    this.userInfo = JSON.parse(userInfo);
-                }
-                this.groupList();
-                if(this.memberInfo.id===this.userInfo.id){
-                    this.isUser = true;
-                }
-/*
-                this.count();
-*/
-            },
-            methods: {
-                loadUser(){
-                    this.userInfo = JSON.parse(sessionStorage.getItem("userInfo"))
-                },
-                logout() {
-                    sessionStorage.removeItem("userInfo");
-                    this.userInfo = {};
-                    location.reload();
-                },
-                loadMember() {
-                    this.memberInfo = JSON.parse(sessionStorage.getItem("memberInfo"))
+<!-- ==== Main Script ==== -->
+<script src="js/main.js"></script>
 
-                },
-
-                loadGroup:function() {
-                    this.group = JSON.parse(sessionStorage.getItem("group"));
-                },
-
-                groupList(pageNum){
-                    const _this = this;
-                    let groupId;
-                    this.memberInfo = JSON.parse(sessionStorage.getItem("memberInfo"))
-                    axios.get("/free/userInfo/memberGroups", {
-                        params: {
-                            pageNum: pageNum,
-                            userId: _this.memberInfo.id,
-                            groupId: groupId
-                        }
-                    }).then(function(response) {
-                        _this.pageInfo = response.data;
-                        _this.userGroups = response.data.list;
-                    });
-                }
+<script src="js/vue.js"></script>
+<script src="js/axios.js"></script>
+<script>
+    new Vue({
+        el: "#content",
+        data: {
+            userInfo: {},
+            memberInfo: {},
+            group: {},
+            pageInfo: {},
+            userGroups: [],
+            groupCount: 5,
+            isUser: false
+        },
+        created: function () {
+            this.loadGroup();
+            this.loadUser();
+            this.loadMember();
+            var userInfo = sessionStorage.getItem("userInfo");
+            if (userInfo) {
+                this.userInfo = JSON.parse(userInfo);
             }
-        })
-    </script>
+            this.groupList();
+            if (this.memberInfo.id === this.userInfo.id) {
+                this.isUser = true;
+            }
+        },
+        methods: {
+            loadUser() {
+                this.userInfo = JSON.parse(sessionStorage.getItem("userInfo"))
+            },
+            logout() {
+                sessionStorage.removeItem("userInfo");
+                this.userInfo = {};
+                location.reload();
+            },
+            loadMember() {
+                this.memberInfo = JSON.parse(sessionStorage.getItem("memberInfo"))
 
+            },
+            loadGroup: function () {
+                this.group = JSON.parse(sessionStorage.getItem("group"));
+            },
+            groupList(pageNum) {
+                const _this = this;
+                let groupId;
+                this.memberInfo = JSON.parse(sessionStorage.getItem("memberInfo"))
+                axios.get("/free/userInfo/memberGroups", {
+                    params: {
+                        pageNum: pageNum,
+                        userId: _this.memberInfo.id,
+                        groupId: groupId
+                    }
+                }).then(function (response) {
+                    _this.pageInfo = response.data;
+                    _this.userGroups = response.data.list;
+                });
+            }
+        }
+    })
+</script>
 </body>
 </html>
