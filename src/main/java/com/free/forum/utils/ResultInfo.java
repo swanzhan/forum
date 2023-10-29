@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * 用于封装后端返回前端数据对象
+ * @author swan
  */
 @Data
 public class ResultInfo implements Serializable {

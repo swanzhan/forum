@@ -14,6 +14,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * @author swan
+ */
 @RestController
 @RequestMapping("/check")
 public class CheckController {

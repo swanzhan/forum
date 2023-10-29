@@ -3,6 +3,9 @@ package com.free.forum.service;
 import com.free.forum.beans.Message;
 import com.github.pagehelper.PageInfo;
 
+/**
+ * @author swan
+ */
 public interface MessageService {
     PageInfo<Message> conversationList(Integer pageNum, String userId);
 

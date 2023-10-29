@@ -6,6 +6,9 @@ import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
+/**
+ * @author swan
+ */
 public interface GroupService {
     PageInfo<Group> groupList(Integer pageNum);
 

@@ -8,10 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * Message 消息映射
- *
- * @author swanzhan
- * @date 2023/10/03
+ * @author swan
  */
 @Mapper
 public interface MessageMapper extends BaseMapper<Message> {

@@ -1,5 +1,8 @@
 package com.free.forum.exception;
 
+/**
+ * @author swan
+ */
 public class LoginException extends Exception {
     public LoginException() {
     }

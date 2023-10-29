@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author swan
+ */
 @Service
 @RequiredArgsConstructor
 public class MessageServiceImpl implements MessageService {

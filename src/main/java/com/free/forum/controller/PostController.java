@@ -16,6 +16,9 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * @author swan
+ */
 @RestController
 @RequestMapping("post")
 @RequiredArgsConstructor

@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author swan
+ */
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
@@ -26,7 +29,7 @@ public class PostServiceImpl implements PostService {
     private final GroupMapper groupMapper;
     private final PostMapper postMapper;
     private final UserInfoMapper userInfoMapper;
-    private final RedisTemplate redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
     /**
      * 小组帖子

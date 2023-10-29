@@ -20,6 +20,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
+/**
+ * @author swan
+ */
 @Service
 @RequiredArgsConstructor
 public class UserInfoServiceImpl implements UserInfoService {

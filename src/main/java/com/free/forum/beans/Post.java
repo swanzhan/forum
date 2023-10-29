@@ -7,6 +7,9 @@ import lombok.Data;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author swan
+ */
 @Data
 @TableName("post")
 public class Post {

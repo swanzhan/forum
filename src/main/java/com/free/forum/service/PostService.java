@@ -5,6 +5,9 @@ import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
+/**
+ * @author swan
+ */
 public interface PostService {
     PageInfo<Post> groupPosts(Integer pageNum, String groupId, String sortStatus);
 

@@ -10,10 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * UserInfo 用户映射
- *
- * @author swanzhan
- * @date 2023/10/01
+ * @author swan
  */
 @Mapper
 public interface UserInfoMapper extends BaseMapper<UserInfo> {

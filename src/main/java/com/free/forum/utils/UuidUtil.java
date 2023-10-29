@@ -2,6 +2,9 @@ package com.free.forum.utils;
 
 import java.util.UUID;
 
+/**
+ * @author swan
+ */
 public class UuidUtil {
     public static String[] chars = new String[]{
             "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",

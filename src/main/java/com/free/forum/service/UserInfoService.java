@@ -4,6 +4,9 @@ import com.free.forum.beans.Group;
 import com.free.forum.beans.UserInfo;
 import com.github.pagehelper.PageInfo;
 
+/**
+ * @author swan
+ */
 public interface UserInfoService {
     UserInfo login(UserInfo userInfo) throws Exception;
 

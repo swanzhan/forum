@@ -8,6 +8,9 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
+/**
+ * @author swan
+ */
 @Data
 @TableName("users")
 public class UserInfo {

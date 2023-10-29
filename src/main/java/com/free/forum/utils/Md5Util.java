@@ -3,9 +3,10 @@ package com.free.forum.utils;
 import java.security.MessageDigest;
 
 /**
- * 写一个MD5算法,运行结果与MySQL的md5()函数相同
- * 将明文密码转成MD5密码
+ * 写一个 MD5 算法,运行结果与 MySQL 的 md5() 函数相同
+ * 将明文密码转成 MD5 密码
  * 123456 -> e10adc3949ba59abbe56e057f20f883e
+ * @author swan
  */
 public final class Md5Util {
     private Md5Util() {
