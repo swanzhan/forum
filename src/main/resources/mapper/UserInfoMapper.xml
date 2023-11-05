@@ -94,4 +94,19 @@
             WHERE userId = #{userId}
         )
     </select>
+    <select id="findPostFavorite" parameterType="String" resultType="Group">
+        SELECT COUNT(*)
+        FROM user_post
+        WHERE postId = #{postId} AND userId = #{userId}
+    </select>
+    <insert id="insertByUserIdAndPostId" parameterType="Map">
+        INSERT INTO user_post
+        VALUES
+        (#{userId}, #{postId})
+    </insert>
+    <delete id="deleteByUserIdAndPostId" parameterType="Map">
+        DELETE
+        FROM user_post
+        WHERE userId = #{userId} AND postId = #{postId}
+    </delete>
 </mapper>

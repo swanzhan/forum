@@ -39,4 +39,10 @@ public interface UserInfoMapper extends BaseMapper<UserInfo> {
     List<UserInfo> findMemberFocusByUserId(String userId);
 
     List<UserInfo> findMemberFansByUserId(String userId);
+
+    int findPostFavorite(@Param("userId") String userId, @Param("postId") String postId);
+
+    void insertByUserIdAndPostId(@Param("userId") String userId, @Param("postId") String postId);
+
+    void deleteByUserIdAndPostId(@Param("userId") String userId, @Param("postId") String postId);
 }

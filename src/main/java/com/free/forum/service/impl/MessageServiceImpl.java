@@ -28,7 +28,7 @@ public class MessageServiceImpl implements MessageService {
      *
      * @param pageNum 页码
      * @param userId  用户 ID
-     * @return 页面信息<消息>
+     * @return 页面信息
      */
     @Override
     public PageInfo<Message> conversationList(Integer pageNum, String userId) {
@@ -57,7 +57,7 @@ public class MessageServiceImpl implements MessageService {
      * @param pageNum   页码
      * @param userId    用户 ID
      * @param partnerId 聊天对象 ID
-     * @return 页面信息<消息>
+     * @return 页面信息
      */
     @Override
     public PageInfo<Message> conversation(Integer pageNum, String userId, String partnerId) {

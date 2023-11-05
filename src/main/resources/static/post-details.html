@@ -585,7 +585,7 @@
                     this.sendComment.parentId = this.replyCommentId;
                     this.sendComment.rootId = this.replyRootId;
                 }
-                axios.post("/free/comment/save", this.sendComment).then(function (response) {
+                axios.post("/free/comment/send", this.sendComment).then(function (response) {
                     _this.load();
                     _this.loadCommentPages(1, 1);
                     _this.sendComment.content = "";
@@ -596,7 +596,7 @@
                 let _this = this;
                 let id = getParameter("id");
                 this.postId = id;
-                axios.get("/free/post/view", {
+                axios.get("/free/post/postView", {
                     params: {
                         userId: this.userInfo.id,
                         postId: this.postId
@@ -626,7 +626,7 @@
                 let _this = this;
                 this.userInfo = JSON.parse(sessionStorage.getItem("userInfo"));
                 if (f === 1) {
-                    axios.get("/free/comment/commentList", {
+                    axios.get("/free/comment/list", {
                         params: {
                             pageNum: pageNum, postId: this.postId, userId: this.userInfo.id
                         }
@@ -646,7 +646,7 @@
                         }
                     })
                 } else if (f === 2) {
-                    axios.get("/free/comment/secondCommentList", {
+                    axios.get("/free/comment/secondList", {
                         params: {
                             pageNum: pageNum, postId: this.postId, userId: this.userInfo.id, rootId: rootId
                         }
