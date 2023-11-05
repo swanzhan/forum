@@ -112,4 +112,69 @@ public class PostServiceImpl implements PostService {
         }
         return new PageInfo<>(list);
     }
+
+    /**
+     * 帖子详情
+     *
+     * @param postId 帖子 ID
+     * @return 发布
+     */
+    @Override
+    public Post details(String postId) {
+        Post post = postMapper.selectById(postId);
+        post.setUser(userInfoMapper.selectById(post.getUserId()));
+        post.setGroup(groupMapper.selectById(post.getGroupId()));
+        return post;
+    }
+
+    /**
+     * 帖子浏览量
+     *
+     * @param userId 用户 ID
+     * @param postId 帖子 ID
+     */
+    @Override
+    public void postView(String userId, String postId) {
+        String key = "post" + postId;
+        boolean isMember = Boolean.TRUE.equals(redisTemplate.opsForSet().isMember(key, userId));
+        if (!isMember) {
+            redisTemplate.opsForSet().add(key, userId);
+            redisTemplate.opsForSet().add("postCache", postId);
+        }
+    }
+
+    /**
+     * 是否收藏
+     *
+     * @param postId 帖子 ID
+     * @param userId 用户 ID
+     * @return boolean
+     */
+    @Override
+    public boolean isFavorite(String userId, String postId) {
+        int count = userInfoMapper.findPostFavorite(userId, postId);
+        return count != 0;
+    }
+
+    /**
+     * 帖子收藏
+     *
+     * @param userId 用户 ID
+     * @param postId 帖子 ID
+     */
+    @Override
+    public void favorite(String userId, String postId) {
+        userInfoMapper.insertByUserIdAndPostId(userId, postId);
+    }
+
+    /**
+     * 帖子取消收藏
+     *
+     * @param userId 用户 ID
+     * @param postId 帖子 ID
+     */
+    @Override
+    public void cancelFavorite(String userId, String postId) {
+        userInfoMapper.deleteByUserIdAndPostId(userId, postId);
+    }
 }

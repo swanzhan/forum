@@ -5,9 +5,7 @@ import com.free.forum.service.PostService;
 import com.free.forum.utils.ResultInfo;
 import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,9 +50,8 @@ public class PostController {
     /**
      * 发布帖子
      *
-     * @param request
-     * @param post    帖子
-     * @param files   文件
+     * @param post  帖子
+     * @param files 文件
      * @return 结果信息
      * @throws IOException IO异常
      */
@@ -63,7 +60,10 @@ public class PostController {
         for (MultipartFile file : files) {
             String filename = file.getOriginalFilename();
             String uuid = UUID.randomUUID().toString().replaceAll("-", "");
-            String extension = filename.substring(filename.lastIndexOf("."));
+            String extension = null;
+            if (filename != null) {
+                extension = filename.substring(filename.lastIndexOf("."));
+            }
             filename = uuid + extension;
             String realPath = request.getServletContext().getRealPath("/img/post-img");
             File parent = new File(realPath);
@@ -97,5 +97,74 @@ public class PostController {
         return postService.userPosts(pageNum, userId, flag);
     }
 
+    /**
+     * 帖子详情
+     *
+     * @param id 编号
+     * @return Post
+     * @throws Exception 异常
+     */
+    @RequestMapping(value = "details/{id}", method = RequestMethod.GET)
+    public Post details(@PathVariable String id) throws Exception {
+        return postService.details(id);
+    }
 
+    /**
+     * 帖子浏览量
+     *
+     * @param userId 用户 ID
+     * @param postId 帖子 ID
+     * @return 结果信息
+     */
+    @RequestMapping("postView")
+    public ResultInfo postView(@RequestParam String userId, @RequestParam String postId) {
+        postService.postView(userId, postId);
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setFlag(true);
+        return resultInfo;
+    }
+
+    /**
+     * 是否收藏/喜欢
+     *
+     * @param postId 帖子 ID
+     * @param userId 用户 ID
+     * @return 结果信息
+     */
+    @RequestMapping("isFavorite")
+    public ResultInfo isFavorite(@RequestParam String userId, @RequestParam String postId) {
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setFlag(postService.isFavorite(userId, postId));
+        return resultInfo;
+    }
+
+    /**
+     * 帖子收藏
+     *
+     * @param postId 帖子 ID
+     * @param userId 用户 ID
+     * @return 结果信息
+     */
+    @RequestMapping("favorite")
+    public ResultInfo favorite(@RequestParam String userId, @RequestParam String postId) {
+        postService.favorite(userId, postId);
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setFlag(true);
+        return resultInfo;
+    }
+
+    /**
+     * 帖子取消收藏
+     *
+     * @param postId 帖子 ID
+     * @param userId 用户 ID
+     * @return 结果信息
+     */
+    @RequestMapping("cancelFavorite")
+    public ResultInfo cancelFavorite(@RequestParam String userId, @RequestParam String postId) {
+        postService.cancelFavorite(userId, postId);
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setFlag(false);
+        return resultInfo;
+    }
 }

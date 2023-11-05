@@ -16,4 +16,14 @@ public interface PostService {
     void releasePost(Post post);
 
     PageInfo<Post> userPosts(Integer pageNum, String userId, Integer flag);
+
+    Post details(String postId);
+
+    void postView(String userId, String postId);
+
+    boolean isFavorite(String userId, String postId);
+
+    void favorite(String userId, String postId);
+
+    void cancelFavorite(String userId, String postId);
 }
