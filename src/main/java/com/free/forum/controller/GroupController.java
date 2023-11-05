@@ -122,4 +122,18 @@ public class GroupController {
     public List<UserInfo> activeGroupMember(String groupId) {
         return groupService.activeGroupMember(groupId);
     }
+
+    /**
+     * 热门小组推荐
+     *
+     * @return 结果信息
+     */
+    @RequestMapping("recommend")
+    public ResultInfo recommend() {
+        List<Group> list = groupService.recommend();
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setFlag(true);
+        resultInfo.setData(list);
+        return resultInfo;
+    }
 }

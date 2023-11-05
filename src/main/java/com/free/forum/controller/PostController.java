@@ -167,4 +167,29 @@ public class PostController {
         resultInfo.setFlag(false);
         return resultInfo;
     }
+
+    /**
+     * 热门帖子
+     *
+     * @return 结果信息
+     */
+    @RequestMapping("hotPost")
+    public ResultInfo hotPost(){
+        List<Post> list = postService.hotPost();
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setData(list);
+        resultInfo.setFlag(true);
+        return resultInfo;
+    }
+
+    /**
+     * 关键词搜索帖子和评论
+     *
+     * @param keyword 关键词
+     * @return 列表
+     */
+    @RequestMapping("mainSearch")
+    public List<Post> mainSearch(String keyword){
+        return postService.mainSearch(keyword);
+    }
 }

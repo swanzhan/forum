@@ -26,4 +26,8 @@ public interface PostService {
     void favorite(String userId, String postId);
 
     void cancelFavorite(String userId, String postId);
+
+    List<Post> hotPost();
+
+    List<Post> mainSearch(String keyword);
 }

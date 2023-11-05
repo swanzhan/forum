@@ -25,4 +25,6 @@ public interface GroupService {
     PageInfo<UserInfo> memberList(Integer pageNum, String groupId, String userId);
 
     List<UserInfo> activeGroupMember(String groupId);
+
+    List<Group> recommend();
 }

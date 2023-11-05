@@ -1,6 +1,7 @@
 package com.free.forum.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.free.forum.beans.Comment;
 import com.free.forum.beans.Post;
 import com.free.forum.beans.UserInfo;
 import com.free.forum.mapper.CommentMapper;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author swan
@@ -176,5 +178,50 @@ public class PostServiceImpl implements PostService {
     @Override
     public void cancelFavorite(String userId, String postId) {
         userInfoMapper.deleteByUserIdAndPostId(userId, postId);
+    }
+
+    /**
+     * 热门帖子
+     *
+     * @return 列表
+     */
+    @Override
+    public List<Post> hotPost() {
+        return postMapper.selectList(new QueryWrapper<Post>()
+                .orderByDesc("view")
+                .last("limit 0, 5"));
+    }
+
+    /**
+     * 关键词搜索帖子和评论
+     *
+     * @param keyword 关键词
+     * @return 列表
+     */
+    @Override
+    public List<Post> mainSearch(String keyword) {
+    /*
+    SELECT
+	    *
+    FROM
+        post
+    WHERE
+        id IN ( SELECT DISTINCT postId FROM comment WHERE content LIKE '%测试%' )
+        OR ( title LIKE '%测试%' OR content LIKE '%测试%' );
+    * */
+        QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
+
+        // 使用 or 条件连接 title 和 content 字段的模糊查询
+        queryWrapper.like("title", keyword).or().like("content", keyword);
+
+        List<String> postIdList = commentMapper.selectList(
+                        new QueryWrapper<Comment>().select("DISTINCT postId").like("content", keyword))
+                .stream()
+                .map(Comment::getPostId)
+                .collect(Collectors.toList());
+
+        // 使用 or 条件连接 id 和 postId 字段的 in 查询
+        queryWrapper.or().in("id", postIdList);
+        return postMapper.selectList(queryWrapper);
     }
 }

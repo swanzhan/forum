@@ -2,9 +2,11 @@ package com.free.forum.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.free.forum.beans.Comment;
 import com.free.forum.beans.Group;
 import com.free.forum.beans.Post;
 import com.free.forum.beans.UserInfo;
+import com.free.forum.mapper.CommentMapper;
 import com.free.forum.mapper.GroupMapper;
 import com.free.forum.mapper.PostMapper;
 import com.free.forum.mapper.UserInfoMapper;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author swan
@@ -28,6 +31,7 @@ public class GroupServiceImpl implements GroupService {
     private final GroupMapper groupMapper;
     private final UserInfoMapper userInfoMapper;
     private final PostMapper postMapper;
+    private final CommentMapper commentMapper;
 
     /**
      * 组列表
@@ -189,5 +193,36 @@ public class GroupServiceImpl implements GroupService {
         QueryWrapper<UserInfo> userInfoQueryWrapper = new QueryWrapper<>();
         userInfoQueryWrapper.in("id", userIdList);
         return userInfoMapper.selectList(userInfoQueryWrapper);
+    }
+
+    /**
+     * 热门小组推荐
+     *
+     * @return 列表
+     */
+    @Override
+    public List<Group> recommend() {
+        List<String> groupIdList = postMapper.selectList(new QueryWrapper<Post>()
+                        .select("groupId")
+                        .groupBy("groupId")
+                        .orderByDesc("COUNT(*)")
+                        .last("limit 0, 3"))
+                .stream()
+                .map(Post::getGroupId)
+                .collect(Collectors.toList());
+        List<Group> groupList = groupMapper.selectBatchIds(groupIdList);
+        for (Group group : groupList) {
+            List<Post> postList = postMapper.selectList(new QueryWrapper<Post>()
+                    .eq("groupId", group.getId())
+                    .orderByDesc("view")
+                    .last("limit 0, 2"));
+            for (Post post : postList) {
+                post.setUser(userInfoMapper.selectById(post.getUserId()));
+                post.setComments(commentMapper.selectList(new QueryWrapper<Comment>()
+                        .eq("postId", post.getId())));
+            }
+            group.setHotPosts(postList);
+        }
+        return groupList;
     }
 }
