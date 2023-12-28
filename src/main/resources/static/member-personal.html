@@ -223,6 +223,7 @@
                                             </div>
                                         </div>
                                         <!-- Activity Item End -->
+                                        <a v-show="userInfo.id === memberInfo.id" @click.prevent="deletePost(post.id)" class="btn btn-primary ml--70">删除</a>
                                     </li>
                                 </ul>
                                 <!-- Activity Items End -->
@@ -402,6 +403,19 @@
                     }).then(function (response) {
                         _this.postList = response.data.list;
                         _this.pageInfo = response.data;
+                    })
+                },
+                deletePost(postId) {
+                    let _this = this;
+                    axios.get("/free/post/removePost", {
+                        params: {
+                            postId: postId
+                        }
+                    }).then(function (response) {
+                        if (response.data.flag === true) {
+                            _this.loadPosts(1);
+                            location.reload();
+                        }
                     })
                 }
             },

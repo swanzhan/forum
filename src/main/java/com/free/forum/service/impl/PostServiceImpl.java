@@ -90,6 +90,29 @@ public class PostServiceImpl implements PostService {
     }
 
     /**
+     * 删除帖子
+     *
+     * @param postId 帖子 ID
+     * @return boolean
+     */
+    @Override
+    public Boolean removePost(String postId) {
+        return postMapper.deleteById(postId) > 0;
+    }
+
+    /**
+     * 更新帖子
+     *
+     * @param post 发布
+     * @return Post
+     */
+    @Override
+    public Post updatePost(Post post) {
+        postMapper.updateById(post);
+        return postMapper.selectById(post.getId());
+    }
+
+    /**
      * 用户帖子
      *
      * @param pageNum 页码
@@ -138,11 +161,11 @@ public class PostServiceImpl implements PostService {
     @Override
     public void postView(String userId, String postId) {
         String key = "post" + postId;
-        boolean isMember = Boolean.TRUE.equals(redisTemplate.opsForSet().isMember(key, userId));
+        boolean isMember = Boolean.TRUE.equals(redisTemplate.opsForSet().isMember("postCache", postId));
         if (!isMember) {
-            redisTemplate.opsForSet().add(key, userId);
             redisTemplate.opsForSet().add("postCache", postId);
         }
+        redisTemplate.opsForSet().add(key, userId);
     }
 
     /**
@@ -222,6 +245,17 @@ public class PostServiceImpl implements PostService {
 
         // 使用 or 条件连接 id 和 postId 字段的 in 查询
         queryWrapper.or().in("id", postIdList);
-        return postMapper.selectList(queryWrapper);
+        List<Post> postList = postMapper.selectList(queryWrapper);
+
+        List<Comment> commentList = commentMapper.selectList(new QueryWrapper<Comment>()
+                .like("content", keyword)
+                .last("limit 2"));
+        return postList.stream()
+                .peek(post -> post.setUser(userInfoMapper.selectById(post.getUserId())))
+                .peek(post -> post.setGroup(groupMapper.selectById(post.getGroupId())))
+                .peek(post -> post.setComments(commentList.stream()
+                        .peek(comment -> comment.setUser(userInfoMapper.selectById(comment.getUserId())))
+                        .collect(Collectors.toList())))
+                .collect(Collectors.toList());
     }
 }

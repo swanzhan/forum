@@ -1,6 +1,7 @@
 package com.free.forum.beans;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -26,6 +27,8 @@ public class Post {
     @TableField("groupId")
     private String groupId;
     private String pic;
+    @TableLogic
+    private Integer deleted;
     @TableField(exist = false)
     private UserInfo user;
     @TableField(exist = false)

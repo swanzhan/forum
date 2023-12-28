@@ -15,6 +15,10 @@ public interface PostService {
 
     void releasePost(Post post);
 
+    Boolean removePost(String postId);
+
+    Post updatePost(Post post);
+
     PageInfo<Post> userPosts(Integer pageNum, String userId, Integer flag);
 
     Post details(String postId);

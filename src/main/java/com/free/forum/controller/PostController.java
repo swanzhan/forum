@@ -85,6 +85,35 @@ public class PostController {
     }
 
     /**
+     * 删除帖子
+     *
+     * @param postId 帖子 ID
+     * @return 结果信息
+     */
+    @RequestMapping("removePost")
+    public ResultInfo removePost(String postId) {
+        Boolean isRemoved = postService.removePost(postId);
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setFlag(isRemoved);
+        return resultInfo;
+    }
+
+    /**
+     * 编辑帖子
+     *
+     * @param post 发布
+     * @return 结果信息
+     */
+    @RequestMapping("updatePost")
+    public ResultInfo updatePost(@RequestBody Post post) {
+        Post newPost = postService.updatePost(post);
+        ResultInfo resultInfo = new ResultInfo();
+        resultInfo.setData(newPost);
+        resultInfo.setFlag(true);
+        return resultInfo;
+    }
+
+    /**
      * 用户帖子
      *
      * @param pageNum 页码
